@@ -10,7 +10,7 @@
     <h1 class="f2 courier tc">Stat Watch</h1>
     <div class="tc">
         <h4>Search Player</h4>
-        <form action="" method="post">
+        <form action="{{ url_for('search') }}" method="post">
         <input type="text" name="first name" placeholder="first name">
         <input type="text" name="last name" placeholder="last name">
         <input type="submit" value="Search">
