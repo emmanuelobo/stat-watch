@@ -3,7 +3,7 @@ from nba_py.player import get_player
 from nba_py import player
 from flask_sqlalchemy import SQLAlchemy
 from decouple import config
-from player import get_profile_pic
+from scripts.player import get_profile_pic
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')

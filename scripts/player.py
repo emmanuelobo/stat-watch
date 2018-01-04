@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import decouple
 
 def get_profile_pic(pid):
 	"""
@@ -11,5 +12,5 @@ def get_profile_pic(pid):
 	html = requests.get(f'https://stats.nba.com/player/{pid}/')
 	source = BeautifulSoup(html.content, 'html.parser')
 	tid = source.find(attrs={'player-id': f'{pid}'})['team-id']
-	profile_pic = f'https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/{tid}/2017/260x190/{pid}.png'
+	profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid)
 	return profile_pic
