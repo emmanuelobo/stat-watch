@@ -12,6 +12,7 @@ requests = "*"
 flask-sqlalchemy = "*"
 nba-py = "*"
 python-decouple = "*"
+"beautifulsoup4" = "*"
 
 
 [dev-packages]

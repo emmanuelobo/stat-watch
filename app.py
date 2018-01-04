@@ -3,6 +3,7 @@ from nba_py.player import get_player
 from nba_py import player
 from flask_sqlalchemy import SQLAlchemy
 from decouple import config
+from player import get_profile_pic
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
@@ -36,18 +37,22 @@ def search():
 		last_name = request.form['last name'].strip()
 		try:
 			pid = get_player(first_name,last_name)
+			print(f'Player ID: {pid}')
 			searched_player = player.PlayerSummary(pid)
 			print(searched_player.headline_stats()[0])
 			player_name = searched_player.headline_stats()[0]['PLAYER_NAME']
 			player_ppg = searched_player.headline_stats()[0]['PTS']
 			player_apg = searched_player.headline_stats()[0]['AST']
 			player_rpg = searched_player.headline_stats()[0]['REB']
+			player_pie = searched_player.headline_stats()[0]['PIE']
 
 			data = {}
 			data['player_name'] = player_name
 			data['player_ppg'] = player_ppg
 			data['player_rpg'] = player_rpg
 			data['player_apg'] = player_apg
+			data['player_pie'] = player_pie
+			data['profile_pic'] = get_profile_pic(pid)
 
 		except StopIteration:
 			return 'Oops it appears that player doesn\'t exist. Please try again.'
