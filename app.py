@@ -1,13 +1,11 @@
 from flask import Flask, render_template, request
 from nba_py.player import get_player
 from nba_py import player
-from flask_sqlalchemy import SQLAlchemy
 from decouple import config
 from scripts.player import get_profile_pic
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
-db = SQLAlchemy(app)
 
 
 @app.route('/')
@@ -17,6 +15,7 @@ def home():
 		curr_player = get_player('Anthony', 'Davis')
 		my_player = player.PlayerSummary(curr_player)
 		print(player.PlayerSummary(curr_player).headline_stats())
+		print(player.PlayerSummary(curr_player).info())
 	except StopIteration:
 		print('Oops that player doesn\'t exist')
 	return render_template('homepage.html', player=my_player)
@@ -52,7 +51,7 @@ def search():
 			data['player_rpg'] = player_rpg
 			data['player_apg'] = player_apg
 			data['player_pie'] = player_pie
-			data['profile_pic'] = get_profile_pic(pid)
+			data['profile_pic'] = get_profile_pic(searched_player.info()[0])
 
 		except StopIteration:
 			return 'Oops it appears that player doesn\'t exist. Please try again.'

@@ -1,16 +1,15 @@
-import requests
-from bs4 import BeautifulSoup
 import decouple
 
-def get_profile_pic(pid):
+
+def get_profile_pic(player):
 	"""
 	Retrieve the player's profile picture
-	:param pid:
+	:param player:
 	:return:
 	"""
-	pid = str(pid)
-	html = requests.get(f'https://stats.nba.com/player/{pid}/')
-	source = BeautifulSoup(html.content, 'html.parser')
-	tid = source.find(attrs={'player-id': f'{pid}'})['team-id']
-	profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid)
+	pid = str(player['PERSON_ID'])
+	year = str(player['TO_YEAR'])
+	tid = str(player['TEAM_ID'])
+	profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid).replace(
+		'current_year', year)
 	return profile_pic

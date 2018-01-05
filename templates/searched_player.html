@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <title>Player Search</title>
     <link rel="stylesheet" href="static/node_modules/tachyons/css/tachyons.min.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <div class="tc">
-        <img src="{{profile_pic}}" alt="{{player_name}}">
-        <p>Name: {{player_name}}</p>
-        <p>PPG: {{player_ppg}}</p>
-        <p>RPG: {{player_rpg}}</p>
-        <p>APG: {{player_apg}}</p>
-        <p>PIE: {{player_pie}}</p>
+        <article class="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center" style="background-color: #fafafaad;">
+            <img src="{{profile_pic}}" class="db w-100 br2 br--top" alt="{{player_name}}">
+          <div class="pa2 ph3-ns pb3-ns" style="background: url('static/subtle_patterns/crossword/crossword.png');">
+            <div class="dt w-100 mt1">
+              <div class="tc">
+                <h1 class="f5 f4-ns mv0" style="font-family: 'Exo', Arial, sans-serf;color: steelblue;">{{player_name}}</h1>
+              </div>
+            </div>
+            <p class="f6 lh-copy measure mt2 mid-gray">
+                <p class="stat-item"><b>PPG:</b> {{player_ppg}}</p>
+                <p class="stat-item"><b>RPG:</b> {{player_rpg}}</p>
+                <p class="stat-item"><b>APG:</b> {{player_apg}}</p>
+                <p class="stat-item"><b>PIE:</b> {{player_pie}}</p>
+            </p>
+          </div>
+        </article>
+
     </div>
 
 </body>
