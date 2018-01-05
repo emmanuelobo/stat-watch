@@ -13,3 +13,12 @@ def get_profile_pic(player):
 	profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid).replace(
 		'current_year', year)
 	return profile_pic
+
+
+def get_team_colors(team):
+	"""
+	Returns the primary and secondary colors of the player's team
+	:param team:
+	:return:
+	"""
+	pass

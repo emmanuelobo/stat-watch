@@ -2,23 +2,20 @@ from flask import Flask, render_template, request
 from nba_py.player import get_player
 from nba_py import player
 from decouple import config
+
+from scripts.database import init_db
+from scripts.database import db_session as db
 from scripts.player import get_profile_pic
+from scripts.models import User
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config('SQLALCHEMY_TRACK_MODIFICATIONS', True)
 
 
 @app.route('/')
 def home():
-	my_player = None
-	try:
-		curr_player = get_player('Anthony', 'Davis')
-		my_player = player.PlayerSummary(curr_player)
-		print(player.PlayerSummary(curr_player).headline_stats())
-		print(player.PlayerSummary(curr_player).info())
-	except StopIteration:
-		print('Oops that player doesn\'t exist')
-	return render_template('homepage.html', player=my_player)
+	return render_template('homepage.html')
 
 @app.route('/login')
 def login():
@@ -63,8 +60,8 @@ if __name__ == '__main__':
 	app.run(debug=True)
 
 
+
 # TODO: Wireframing for pages
-# TODO: Create error page
-# TODO: Fix DB creation issue
+# TODO: Create error pages
 # TODO: Create user login/signup
 # TODO: Create add/remove player functionality

@@ -1,28 +1,40 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy
+from sqlalchemy import Column, Integer, String, Float
+from scripts.database import Base
 
 
-class User(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(30), nullable=False)
-	email = db.Column(db.String(40), nullable=False)
-	password = db.Column(db.String(50), nullable=False)
 
-class PlayerProfile(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	full_name = db.Column(db.String(30), nullable=False)
-	height = db.Column(db.String(10), nullable=False)
-	weight = db.Column(db.String(10), nullable=False)
-	prior = db.Column(db.String(15), nullable=False)
-	age = db.Column(db.Integer, nullable=False)
-	experience = db.Column(db.Integer, nullable=False)
+class User(Base):
+	__tablename__ = 'users'
+	id = Column(Integer, primary_key=True)
+	username = Column(String(30), nullable=False)
+	email = Column(String(40), nullable=False)
+	password = Column(String(50), nullable=False)
+
+	def __init__(self, username=None, email=None, password=None):
+		self.username = username
+		self.email = email
+		self.password = password
+
+	def __repr__(self):
+		return '<User %r>' % self.username
+
+class PlayerProfile(Base):
+	__tablename__ = 'playerprofile'
+	id = Column(Integer, primary_key=True)
+	full_name = Column(String(30), nullable=False)
+	height = Column(String(10), nullable=False)
+	weight = Column(String(10), nullable=False)
+	prior = Column(String(15), nullable=False)
+	age = Column(Integer, nullable=False)
+	experience = Column(Integer, nullable=False)
 
 
-class PlayerStats(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	ppg = db.Column(db.Float, nullable=False)
-	rpg = db.Column(db.Float, nullable=False)
-	apg = db.Column(db.Float, nullable=False)
-	pie = db.Column(db.Float, nullable=False)
-	bpg = db.Column(db.Float, nullable=True)
-	spg = db.Column(db.Float, nullable=True)
+class PlayerStats(Base):
+	__tablename__ = 'playerstats'
+	id = Column(Integer, primary_key=True)
+	ppg = Column(Float, nullable=False)
+	rpg = Column(Float, nullable=False)
+	apg = Column(Float, nullable=False)
+	pie = Column(Float, nullable=False)
+	bpg = Column(Float, nullable=True)
+	spg = Column(Float, nullable=True)
