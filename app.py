@@ -2,11 +2,8 @@ from flask import Flask, render_template, request
 from nba_py.player import get_player
 from nba_py import player
 from decouple import config
-
-from scripts.database import init_db
-from scripts.database import db_session as db
 from scripts.player import get_profile_pic
-from scripts.models import User
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
@@ -33,22 +30,21 @@ def search():
 		last_name = request.form['last name'].strip()
 		try:
 			pid = get_player(first_name,last_name)
-			print(f'Player ID: {pid}')
 			searched_player = player.PlayerSummary(pid)
-			print(searched_player.headline_stats()[0])
 			player_name = searched_player.headline_stats()[0]['PLAYER_NAME']
 			player_ppg = searched_player.headline_stats()[0]['PTS']
 			player_apg = searched_player.headline_stats()[0]['AST']
 			player_rpg = searched_player.headline_stats()[0]['REB']
 			player_pie = searched_player.headline_stats()[0]['PIE']
 
-			data = {}
-			data['player_name'] = player_name
-			data['player_ppg'] = player_ppg
-			data['player_rpg'] = player_rpg
-			data['player_apg'] = player_apg
-			data['player_pie'] = player_pie
-			data['profile_pic'] = get_profile_pic(searched_player.info()[0])
+			data = {
+				'player_name': player_name,
+				'player_ppg': player_ppg,
+				'player_rpg': player_rpg,
+				'player_apg': player_apg,
+				'player_pie': player_pie,
+				'profile_pic': get_profile_pic(searched_player.info()[0])
+			}
 
 		except StopIteration:
 			return 'Oops it appears that player doesn\'t exist. Please try again.'
