@@ -31,18 +31,12 @@ def search():
 		try:
 			pid = get_player(first_name,last_name)
 			searched_player = player.PlayerSummary(pid)
-			player_name = searched_player.headline_stats()[0]['PLAYER_NAME']
-			player_ppg = searched_player.headline_stats()[0]['PTS']
-			player_apg = searched_player.headline_stats()[0]['AST']
-			player_rpg = searched_player.headline_stats()[0]['REB']
-			player_pie = searched_player.headline_stats()[0]['PIE']
-
 			data = {
-				'player_name': player_name,
-				'player_ppg': player_ppg,
-				'player_rpg': player_rpg,
-				'player_apg': player_apg,
-				'player_pie': player_pie,
+				'player_name': searched_player.headline_stats()[0]['PLAYER_NAME'],
+				'player_ppg': searched_player.headline_stats()[0]['PTS'],
+				'player_rpg': searched_player.headline_stats()[0]['REB'],
+				'player_apg': searched_player.headline_stats()[0]['AST'],
+				'player_pie': searched_player.headline_stats()[0]['PIE'],
 				'profile_pic': get_profile_pic(searched_player.info()[0])
 			}
 
