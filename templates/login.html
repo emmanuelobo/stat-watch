@@ -6,10 +6,25 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form action="">
-        <input type="text" name="login_name" placeholder="username or e-mail address">
-        <input type="password" name="password" placeholder="secret">
-        <input type="submit" value="Login">
+    <form action="{{url_for('login')}}" method="post">
+        {{form.hidden_tag()}}
+
+        <p>
+            {{form.username.label}} <br>
+            {{form.username(size=30)}}
+        </p>
+
+        <p>
+            {{form.password.label}} <br>
+            {{form.password(size=30)}}
+        </p>
+
+        <p>
+            {{form.remember_me()}}
+            {{form.remember_me.label}}
+        </p>
+
+        <p>{{form.submit()}}</p>
     </form>
 </body>
 </html>

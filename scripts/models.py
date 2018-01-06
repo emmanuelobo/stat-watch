@@ -1,24 +1,29 @@
+from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Float
-from scripts.database import Base
+from werkzeug.security import generate_password_hash, check_password_hash
+from __init__ import db
 
 
-
-class User(Base):
+class User(db.Model, UserMixin):
 	__tablename__ = 'users'
 	id = Column(Integer, primary_key=True)
 	username = Column(String(30), nullable=False)
 	email = Column(String(40), nullable=False)
-	password = Column(String(50), nullable=False)
+	password = Column(String(130), nullable=False)
 
 	def __init__(self, username=None, email=None, password=None):
 		self.username = username
 		self.email = email
 		self.password = password
 
-	def __repr__(self):
-		return '<User %r>' % self.username
+	def set_password(self, password):
+		self.password = generate_password_hash(password)
 
-class PlayerProfile(Base):
+	def validate_password(self, password):
+		return check_password_hash(self.password, password)
+
+
+class PlayerProfile(db.Model):
 	__tablename__ = 'playerprofile'
 	id = Column(Integer, primary_key=True)
 	full_name = Column(String(30), nullable=False)
@@ -29,7 +34,7 @@ class PlayerProfile(Base):
 	experience = Column(Integer, nullable=False)
 
 
-class PlayerStats(Base):
+class PlayerStats(db.Model):
 	__tablename__ = 'playerstats'
 	id = Column(Integer, primary_key=True)
 	ppg = Column(Float, nullable=False)
