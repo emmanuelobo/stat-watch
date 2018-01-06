@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 
 from nba_py.player import get_player
 from nba_py import player
-from scripts.forms import LoginForm
+from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User
 from scripts.player import get_profile_pic
 from __init__ import generate_app, db
@@ -52,7 +52,8 @@ def logout():
 
 @app.route('/register')
 def register():
-	return render_template('signup.html')
+	form = RegistrationForm()
+	return render_template('signup.html', form=form)
 
 
 @app.route('/search', methods=['POST', 'GET'])
