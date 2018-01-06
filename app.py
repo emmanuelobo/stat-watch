@@ -50,9 +50,21 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def register():
+	if current_user.is_authenticated:
+		return redirect(url_for('home'))
+
 	form = RegistrationForm()
+	if form.validate_on_submit():
+		user = User(username=form.username.data, email=form.email.data)
+		user.set_password(form.password.data)
+		db.session.add(user)
+		db.session.commit()
+		flash('Congratulations, you\'re ready to go!')
+		return redirect(url_for('login'))
+
+	print(form.errors)
 	return render_template('signup.html', form=form)
 
 
@@ -85,5 +97,4 @@ if __name__ == '__main__':
 
 # TODO: Wireframing for pages
 # TODO: Create error pages
-# TODO: Create user login/signup
 # TODO: Create add/remove player functionality
