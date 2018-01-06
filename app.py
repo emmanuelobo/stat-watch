@@ -33,12 +33,13 @@ def login():
 
 	form = LoginForm()
 	if form.validate_on_submit():
-		user = User.query.filter_by(username=form.username.data).first()
-		print(user)
+		user = User.query.filter_by(username=form.username_or_email.data).first()
 		if user is None or not user.validate_password(form.password.data):
-			flash('Invalid credentials. Please try again')
-			print('Invalid credentials. Please try again')
-			return redirect(url_for('login'))
+			user = User.query.filter_by(email=form.username_or_email.data).first()
+			if user is None or not user.validate_password(form.password.data):
+				flash('Invalid credentials. Please try again')
+				print('Invalid credentials. Please try again')
+				return redirect(url_for('login'))
 
 		login_user(user, remember=form.remember_me.data)
 		return redirect(url_for('home'))
@@ -63,8 +64,6 @@ def register():
 		db.session.commit()
 		flash('Congratulations, you\'re ready to go!')
 		return redirect(url_for('login'))
-
-	print(form.errors)
 	return render_template('signup.html', form=form)
 
 
