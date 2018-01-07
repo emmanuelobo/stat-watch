@@ -10,9 +10,7 @@ from scripts.player import get_profile_pic
 from __init__ import generate_app, db
 
 app = generate_app()
-
 migrate = Migrate(app, db)
-
 login_manager = LoginManager(app)
 
 
@@ -38,7 +36,6 @@ def login():
 			user = User.query.filter_by(email=form.username_or_email.data).first()
 			if user is None or not user.validate_password(form.password.data):
 				flash('Invalid credentials. Please try again')
-				print('Invalid credentials. Please try again')
 				return redirect(url_for('login'))
 
 		login_user(user, remember=form.remember_me.data)
@@ -51,7 +48,8 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
-@app.route('/register', methods=['GET','POST'])
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))

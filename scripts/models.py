@@ -35,6 +35,10 @@ class PlayerProfile(db.Model):
 	prior = Column(String(15), nullable=False)
 	age = Column(Integer, nullable=False)
 	experience = Column(Integer, nullable=False)
+	picture = Column(String(40), nullable=False)
+
+	def __repr__(self):
+		return f'<Player: {self.full_name}>'
 
 
 class PlayerStats(db.Model):
