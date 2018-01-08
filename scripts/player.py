@@ -22,3 +22,12 @@ def get_team_colors(team):
 	:return:
 	"""
 	pass
+
+
+def get_per(player):
+	"""
+	Retrieve the player's PER
+	:param player:
+	:return:
+	"""
+	pass
