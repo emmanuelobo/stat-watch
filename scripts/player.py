@@ -1,4 +1,5 @@
 import decouple
+import requests
 
 
 def get_profile_pic(player):
@@ -30,4 +31,20 @@ def get_per(player):
 	:param player:
 	:return:
 	"""
-	pass
+
+	last_name = player['LAST_NAME']
+	first_name = player['FIRST_NAME']
+	initial = last_name[:1].lower()
+
+	last_name = last_name if len(last_name) <= 5 else last_name[:5]
+	first_name = first_name if len(first_name) <= 2 else first_name[:2]
+
+	one = '01.html'
+	two = '02.html'
+
+	url = decouple.config('PLAYER_PER').replace('last_name_initial', initial) + last_name + first_name
+
+	source = requests.get(url + one)
+
+	if source.status_code == 404:
+		source = requests.get(url + two)
