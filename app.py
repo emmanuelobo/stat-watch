@@ -20,6 +20,7 @@ def load_user(id):
 
 
 @app.route('/')
+@app.route('/index')
 def home():
 	return render_template('homepage.html')
 

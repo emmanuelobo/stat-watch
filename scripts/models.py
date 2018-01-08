@@ -1,5 +1,6 @@
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
 
@@ -10,6 +11,7 @@ class User(db.Model, UserMixin):
 	username = Column(String(30), nullable=False)
 	email = Column(String(40), nullable=False)
 	password = Column(String(130), nullable=False)
+	players = relationship('PlayerProfile', backref='user', lazy=True)
 
 	def __init__(self, username=None, email=None, password=None):
 		self.username = username
@@ -36,6 +38,8 @@ class PlayerProfile(db.Model):
 	age = Column(Integer, nullable=False)
 	experience = Column(Integer, nullable=False)
 	picture = Column(String(40), nullable=False)
+	user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+	stats = relationship('PlayerStats', backref='playerprofile', lazy=True)
 
 	def __repr__(self):
 		return f'<Player: {self.full_name}>'
@@ -50,3 +54,4 @@ class PlayerStats(db.Model):
 	pie = Column(Float, nullable=False)
 	bpg = Column(Float, nullable=True)
 	spg = Column(Float, nullable=True)
+	player_id = Column(Integer, ForeignKey('playerprofile.id'), nullable=False)
