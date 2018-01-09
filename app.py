@@ -73,14 +73,16 @@ def search():
 		try:
 			pid = get_player(first_name, last_name)
 			searched_player = player.PlayerSummary(pid)
+			PLAYER_STATS = searched_player.headline_stats()[0]
+			PLAYER_INFO = searched_player.info()[0]
 			data = {
-				'player_name': searched_player.headline_stats()[0]['PLAYER_NAME'],
-				'player_ppg': searched_player.headline_stats()[0]['PTS'],
-				'player_rpg': searched_player.headline_stats()[0]['REB'],
-				'player_apg': searched_player.headline_stats()[0]['AST'],
-				'player_pie': searched_player.headline_stats()[0]['PIE'],
-				'player_per': get_per(searched_player.info()[0]),
-				'profile_pic': get_profile_pic(searched_player.info()[0]),
+				'player_name': PLAYER_STATS['PLAYER_NAME'],
+				'player_ppg': PLAYER_STATS['PTS'],
+				'player_rpg': PLAYER_STATS['REB'],
+				'player_apg': PLAYER_STATS['AST'],
+				'player_pie': PLAYER_STATS['PIE'],
+				'player_per': get_per(PLAYER_INFO),
+				'profile_pic': get_profile_pic(PLAYER_INFO),
 			}
 
 		except StopIteration:
