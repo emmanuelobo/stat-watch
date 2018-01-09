@@ -9,11 +9,19 @@
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-{% if current_user.is_authenticated %}
-<h2>Hello, {{current_user.username}}</h2>
-{% else %}
-<h2>Hello, Guest</h2>
-{%endif%}
+<div>
+
+<nav class="pa3 pa4-ns">
+  <a class="link dim black b f6 f5-ns dib mr3" href="{{url_for('home')}}" title="Home">Stat Watch</a>
+  <a class="link dim gray    f6 f5-ns dib mr3" href="#" title="Home">Team</a>
+  <a class="link dim gray    f6 f5-ns dib mr3" href="#" title="Home">Search</a>
+    {% if current_user.is_authenticated %}
+    <a class="link dim gray f6 f5-ns dib" style="font-weight: bold; float: right;" href="#" title="User">{{current_user.username}}</a>
+    {% else %}
+    <a class="link dim gray f6 f5-ns dib" style="font-weight: bold; float: right;" href="#" title="Guest">Guest</a>
+    {%endif%}
+</nav>
+
 
 {% block content %}
 {% endblock %}
