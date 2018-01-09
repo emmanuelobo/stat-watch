@@ -1,5 +1,6 @@
 import decouple
 import requests
+from bs4 import BeautifulSoup
 
 
 def get_profile_pic(player):
@@ -31,20 +32,28 @@ def get_per(player):
 	:param player:
 	:return:
 	"""
-
+	print(player)
 	last_name = player['LAST_NAME']
 	first_name = player['FIRST_NAME']
 	initial = last_name[:1].lower()
 
-	last_name = last_name if len(last_name) <= 5 else last_name[:5]
-	first_name = first_name if len(first_name) <= 2 else first_name[:2]
+	last_name = last_name.lower() if len(last_name) <= 5 else last_name[:5].lower()
+	first_name = first_name.lower() if len(first_name) <= 2 else first_name[:2].lower()
 
 	one = '01.html'
 	two = '02.html'
 
 	url = decouple.config('PLAYER_PER').replace('last_name_initial', initial) + last_name + first_name
-
 	source = requests.get(url + one)
 
 	if source.status_code == 404:
 		source = requests.get(url + two)
+
+	soup = BeautifulSoup(source.content, 'html.parser')
+	player_full_name = soup.find_all(name='span', attrs={'itemprop': 'name'})[2].contents[0]
+
+	if player_full_name != (player['FIRST_NAME'] + ' ' + player['LAST_NAME']):
+		source = requests.get(url + two)
+		soup = BeautifulSoup(source.content, 'html.parser')
+
+	return list(soup.find_all(class_='p3')[0].descendants)[5].string

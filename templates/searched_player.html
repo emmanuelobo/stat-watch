@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+
+    {% block title %}
     <title>Player Search</title>
-</head>
-<body>
+    {% endblock %}
+
+    {% block content %}
     <div class="tc">
         <article class="br2 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 center" style="background-color: #fafafaad;">
             <img src="{{profile_pic}}" class="db w-100 br2 br--top" alt="{{player_name}}" style="border: 1px solid #adadad6b;width: 99.5%;">
@@ -19,11 +19,9 @@
                 <p class="stat-item"><b>RPG:</b> {{player_rpg}}</p>
                 <p class="stat-item"><b>APG:</b> {{player_apg}}</p>
                 <p class="stat-item"><b>PIE:</b> {{player_pie}}</p>
+                <p class="stat-item"><b>PER:</b> {{player_per}}</p>
             </p>
           </div>
         </article>
-
     </div>
-
-</body>
-</html>
+    {% endblock %}
