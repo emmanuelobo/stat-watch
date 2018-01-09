@@ -32,7 +32,6 @@ def get_per(player):
 	:param player:
 	:return:
 	"""
-	print(player)
 	last_name = player['LAST_NAME']
 	first_name = player['FIRST_NAME']
 	initial = last_name[:1].lower()

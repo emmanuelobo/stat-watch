@@ -20,10 +20,7 @@ def load_user(id):
 
 
 @app.route('/')
-@app.route('/index')
 def home():
-	my_player = {'FIRST_NAME': 'Stephen', 'LAST_NAME': 'Curry'}
-	get_per(my_player)
 	return render_template('homepage.html')
 
 
