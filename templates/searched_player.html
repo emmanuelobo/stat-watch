@@ -23,5 +23,11 @@
             </p>
           </div>
         </article>
+
+        {% if current_user.is_authenticated %}
+        <form action="" method="post">
+            <input type="submit" value="Add">
+        </form>
+        {% endif %}
     </div>
     {% endblock %}
