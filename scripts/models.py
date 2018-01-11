@@ -41,7 +41,7 @@ class PlayerProfile(db.Model):
 	experience = Column(Integer, nullable=False)
 	picture = Column(String(140), nullable=False)
 	user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-	stats = relationship('PlayerStats', backref='playerprofile', lazy=True)
+	stats = relationship('PlayerStats', uselist=False, backref='playerprofile', lazy=True)
 
 	def __repr__(self):
 		return f'<Player: {self.full_name}>'
@@ -57,4 +57,4 @@ class PlayerStats(db.Model):
 	per = Column(Float, nullable=False)
 	bpg = Column(Float, nullable=True)
 	spg = Column(Float, nullable=True)
-	player_id = Column(Integer, ForeignKey('playerprofile.id'), nullable=False)
+	player_id = Column(Integer, ForeignKey('playerprofile.id'))

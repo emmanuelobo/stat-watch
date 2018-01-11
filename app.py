@@ -116,11 +116,12 @@ def add_player(id):
 
 		profile = PlayerProfile(full_name=name, height=height, weight=weight, experience=exp, position=position,
 								team=team, user_id=current_user.id, prior='prior', picture=profile_pic, dob=dob)
-		# stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per)
+		stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per)
 
 		current_user.players.append(profile)
+		profile.stats = stats
 		db.session.add(profile)
-		# db.session.add(stats)
+		db.session.add(stats)
 		db.session.commit()
 		print('success!')
 
