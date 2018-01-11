@@ -36,10 +36,10 @@ class PlayerProfile(db.Model):
 	weight = Column(String(10), nullable=False)
 	prior = Column(String(15), nullable=False)
 	team = Column(String(15), nullable=False)
-	# position = Column(String(15), nullable=False)
-	age = Column(Integer, nullable=False)
+	position = Column(String(15), nullable=False)
+	dob = Column(String(20), nullable=False)
 	experience = Column(Integer, nullable=False)
-	picture = Column(String(40), nullable=False)
+	picture = Column(String(140), nullable=False)
 	user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
 	stats = relationship('PlayerStats', backref='playerprofile', lazy=True)
 

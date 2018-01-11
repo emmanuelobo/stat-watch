@@ -27,6 +27,8 @@
         {% if current_user.is_authenticated %}
         <form action="{{url_for('add_player', id=player_id)}}" method="post">
             <input type="hidden" value="{{player_name}}" name="player_name">
+            <input type="hidden" value="{{profile_pic}}" name="profile_pic">
+            <input type="hidden" value="{{player_dob}}" name="player_dob">
             <input type="hidden" value="{{player_height}}" name="player_height">
             <input type="hidden" value="{{player_weight}}" name="player_weight">
             <input type="hidden" value="{{player_exp}}" name="player_exp">

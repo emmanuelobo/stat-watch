@@ -74,12 +74,12 @@ def search():
 			searched_player = player.PlayerSummary(pid)
 			PLAYER_STATS = searched_player.headline_stats()[0]
 			PLAYER_INFO = searched_player.info()[0]
-			print(PLAYER_INFO)
 			data = {
 				'player_id': PLAYER_STATS['PLAYER_ID'],
 				'player_name': PLAYER_STATS['PLAYER_NAME'],
 				'player_height': PLAYER_INFO['HEIGHT'],
 				'player_weight': PLAYER_INFO['WEIGHT'],
+				'player_dob': PLAYER_INFO['BIRTHDATE'],
 				'player_exp': PLAYER_INFO['SEASON_EXP'],
 				'player_position': PLAYER_INFO['POSITION'],
 				'player_team': PLAYER_INFO['TEAM_NAME'],
@@ -97,7 +97,7 @@ def search():
 	return render_template('searched_player.html', **data)
 
 
-@app.route('/player/<int:id>/added', methods=['POST', 'GET'])
+@app.route('/player/<id>/added', methods=['POST', 'GET'])
 def add_player(id):
 	if request.method == 'POST':
 		name = request.form['player_name']
@@ -111,14 +111,18 @@ def add_player(id):
 		rpg = request.form['player_rpg']
 		pie = request.form['player_pie']
 		per = request.form['player_per']
+		profile_pic = request.form['profile_pic']
+		dob = request.form['player_dob']
+
 		profile = PlayerProfile(full_name=name, height=height, weight=weight, experience=exp, position=position,
-								team=team, user_id=current_user.id)
-		stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per, player_id=profile.id)
+								team=team, user_id=current_user.id, prior='prior', picture=profile_pic, dob=dob)
+		# stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per)
 
 		current_user.players.append(profile)
 		db.session.add(profile)
-		db.session.add(stats)
+		# db.session.add(stats)
 		db.session.commit()
+		print('success!')
 
 		flash('Player successfully added.')
 		return redirect(url_for('home'))
