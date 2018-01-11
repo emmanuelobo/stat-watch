@@ -25,7 +25,18 @@
         </article>
 
         {% if current_user.is_authenticated %}
-        <form action="" method="post">
+        <form action="{{url_for('add_player', id=player_id)}}" method="post">
+            <input type="hidden" value="{{player_name}}" name="player_name">
+            <input type="hidden" value="{{player_height}}" name="player_height">
+            <input type="hidden" value="{{player_weight}}" name="player_weight">
+            <input type="hidden" value="{{player_exp}}" name="player_exp">
+            <input type="hidden" value="{{player_team}}" name="player_team">
+            <input type="hidden" value="{{player_position}}" name="player_position">
+            <input type="hidden" value="{{player_ppg}}" name ="player_ppg">
+            <input type="hidden" value="{{player_rpg}}" name="player_rpg">
+            <input type="hidden" value="{{player_apg}}" name="player_apg">
+            <input type="hidden" value="{{player_pie}}" name="player_pie">
+            <input type="hidden" value="{{player_per}}" name="player_per">
             <input type="submit" value="Add">
         </form>
         {% endif %}

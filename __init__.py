@@ -4,6 +4,7 @@ from decouple import config
 
 db = SQLAlchemy()
 
+
 def generate_app():
 	app = Flask(__name__)
 	app.config['SECRET_KEY'] = config('SECRET_KEY')

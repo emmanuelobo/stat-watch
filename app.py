@@ -5,12 +5,11 @@ from flask_migrate import Migrate
 from nba_py.player import get_player
 from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
-from scripts.models import User
+from scripts.models import User, PlayerStats, PlayerProfile
 from scripts.player import get_profile_pic, get_per
 from __init__ import generate_app, db
 
 app = generate_app()
-migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 
 
@@ -75,8 +74,15 @@ def search():
 			searched_player = player.PlayerSummary(pid)
 			PLAYER_STATS = searched_player.headline_stats()[0]
 			PLAYER_INFO = searched_player.info()[0]
+			print(PLAYER_INFO)
 			data = {
+				'player_id': PLAYER_STATS['PLAYER_ID'],
 				'player_name': PLAYER_STATS['PLAYER_NAME'],
+				'player_height': PLAYER_INFO['HEIGHT'],
+				'player_weight': PLAYER_INFO['WEIGHT'],
+				'player_exp': PLAYER_INFO['SEASON_EXP'],
+				'player_position': PLAYER_INFO['POSITION'],
+				'player_team': PLAYER_INFO['TEAM_NAME'],
 				'player_ppg': PLAYER_STATS['PTS'],
 				'player_rpg': PLAYER_STATS['REB'],
 				'player_apg': PLAYER_STATS['AST'],
@@ -91,10 +97,33 @@ def search():
 	return render_template('searched_player.html', **data)
 
 
+@app.route('/player/<int:id>/added', methods=['POST', 'GET'])
+def add_player(id):
+	if request.method == 'POST':
+		name = request.form['player_name']
+		height = request.form['player_height']
+		weight = request.form['player_weight']
+		exp = request.form['player_exp']
+		team = request.form['player_team']
+		position = request.form['player_position']
+		ppg = request.form['player_ppg']
+		apg = request.form['player_apg']
+		rpg = request.form['player_rpg']
+		pie = request.form['player_pie']
+		per = request.form['player_per']
+		profile = PlayerProfile(full_name=name, height=height, weight=weight, experience=exp, position=position,
+								team=team, user_id=current_user.id)
+		stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per, player_id=profile.id)
+
+		current_user.players.append(profile)
+		db.session.add(profile)
+		db.session.add(stats)
+		db.session.commit()
+
+		flash('Player successfully added.')
+		return redirect(url_for('home'))
+
+
 if __name__ == '__main__':
 	login_manager.init_app(app)
 	app.run(debug=True)
-
-# TODO: Wireframing for pages
-# TODO: Create error pages
-# TODO: Create add/remove player functionality
