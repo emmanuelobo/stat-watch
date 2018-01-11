@@ -5,17 +5,9 @@
     {% endblock %}
 
     {% block content %}
-    <div class="tc">
-        <h4>Search Player</h4>
-        <form action="{{ url_for('search') }}" method="post">
-        <input type="text" name="first name" placeholder="first name">
-        <input type="text" name="last name" placeholder="last name">
-        <input type="submit" value="Search">
-    </form>
-
-    </div>
 
     <div class="tc">
+        {% include "includes/team.html" %}
         {% if current_user.is_authenticated %}
         <a href="{{url_for('logout')}}">Logout</a>
         {%else%}

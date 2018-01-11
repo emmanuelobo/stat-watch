@@ -123,7 +123,6 @@ def add_player(id):
 		db.session.add(profile)
 		db.session.add(stats)
 		db.session.commit()
-		print('success!')
 
 		flash('Player successfully added.')
 		return redirect(url_for('home'))

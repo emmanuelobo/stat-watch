@@ -1,0 +1,16 @@
+<div class="tc">
+    {% if current_user.players %}
+    <ul>
+        {% for player in current_user.players %}
+        <li style="list-style: none;">
+            <p>Name: {{player.full_name}}</p>
+            <p>PPG: {{player.stats.ppg}}</p>
+            <p>RPG: {{player.stats.rpg}}</p>
+            <p>APG: {{player.stats.apg}}</p>
+            <p>Team: {{player.team}}</p>
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
