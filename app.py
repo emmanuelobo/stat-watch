@@ -143,9 +143,14 @@ def add_player(id):
 
 @app.route('/player/<id>/removed', methods=['POST', 'GET'])
 def remove_player(id):
-	player = PlayerProfile.query.filter_by(pid=id)
+	player = PlayerProfile.query.filter_by(pid=id).first()
 	stats = player.stats
+	db.session.delete(stats)
+	db.session.delete(player)
+	db.session.commit()
 
+	flash('Player removed from your team')
+	return redirect(url_for('home'))
 
 if __name__ == '__main__':
 	login_manager.init_app(app)
