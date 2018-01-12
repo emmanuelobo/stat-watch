@@ -87,19 +87,32 @@ def search():
 				'player_rpg': PLAYER_STATS['REB'],
 				'player_apg': PLAYER_STATS['AST'],
 				'player_pie': PLAYER_STATS['PIE'],
-				'player_per': get_per(PLAYER_INFO),
 				'profile_pic': get_profile_pic(PLAYER_INFO),
 			}
 
 		except StopIteration:
 			return 'Oops it appears that player doesn\'t exist. Please try again.'
 
-	return render_template('searched_player.html', **data)
+		if PLAYER_INFO['SCHOOL'] is None:
+			data['prior'] = PLAYER_INFO['COUNTRY']
+		else:
+			data['prior'] = PLAYER_INFO['SCHOOL']
+
+		if get_per(PLAYER_INFO) is None:
+			data['player_per'] = 0
+		else:
+			data['player_per'] = get_per(PLAYER_INFO)
+
+		check_player = PlayerProfile.query.filter_by(pid=pid).first()
+		has_player = True if check_player is not None else False
+
+	return render_template('searched_player.html', **data, has_player=has_player)
 
 
 @app.route('/player/<id>/added', methods=['POST', 'GET'])
 def add_player(id):
 	if request.method == 'POST':
+		prior = request.form['prior']
 		name = request.form['player_name']
 		height = request.form['player_height']
 		weight = request.form['player_weight']
@@ -114,8 +127,8 @@ def add_player(id):
 		profile_pic = request.form['profile_pic']
 		dob = request.form['player_dob']
 
-		profile = PlayerProfile(full_name=name, height=height, weight=weight, experience=exp, position=position,
-								team=team, user_id=current_user.id, prior='prior', picture=profile_pic, dob=dob)
+		profile = PlayerProfile(full_name=name, pid=id, height=height, weight=weight, experience=exp, position=position,
+								team=team, user_id=current_user.id, prior=prior, picture=profile_pic, dob=dob)
 		stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per)
 
 		current_user.players.append(profile)
@@ -126,6 +139,12 @@ def add_player(id):
 
 		flash('Player successfully added.')
 		return redirect(url_for('home'))
+
+
+@app.route('/player/<id>/removed', methods=['POST', 'GET'])
+def remove_player(id):
+	player = PlayerProfile.query.filter_by(pid=id)
+	stats = player.stats
 
 
 if __name__ == '__main__':

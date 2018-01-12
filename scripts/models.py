@@ -31,10 +31,11 @@ class User(db.Model, UserMixin):
 class PlayerProfile(db.Model):
 	__tablename__ = 'playerprofile'
 	id = Column(Integer, primary_key=True)
+	pid = Column(Integer)
 	full_name = Column(String(30), nullable=False)
 	height = Column(String(10), nullable=False)
 	weight = Column(String(10), nullable=False)
-	prior = Column(String(15), nullable=False)
+	prior = Column(String(30), nullable=False)
 	team = Column(String(15), nullable=False)
 	position = Column(String(15), nullable=False)
 	dob = Column(String(20), nullable=False)

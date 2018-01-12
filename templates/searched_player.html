@@ -25,6 +25,11 @@
         </article>
 
         {% if current_user.is_authenticated %}
+        {% if has_player %}
+        <form action="{{url_for('remove_player', id=player_id)}}" method="post">
+            <input type="submit" value="Remove">
+        </form>
+        {% else %}
         <form action="{{url_for('add_player', id=player_id)}}" method="post">
             <input type="hidden" value="{{player_name}}" name="player_name">
             <input type="hidden" value="{{profile_pic}}" name="profile_pic">
@@ -39,8 +44,10 @@
             <input type="hidden" value="{{player_apg}}" name="player_apg">
             <input type="hidden" value="{{player_pie}}" name="player_pie">
             <input type="hidden" value="{{player_per}}" name="player_per">
+            <input type="hidden" value="{{prior}}" name="prior">
             <input type="submit" value="Add">
         </form>
+        {% endif %}
         {% endif %}
     </div>
     {% endblock %}
