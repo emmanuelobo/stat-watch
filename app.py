@@ -72,36 +72,36 @@ def search():
 		try:
 			pid = get_player(first_name, last_name)
 			searched_player = player.PlayerSummary(pid)
-			PLAYER_STATS = searched_player.headline_stats()[0]
-			PLAYER_INFO = searched_player.info()[0]
+			player_stats = searched_player.headline_stats()[0]
+			player_info = searched_player.info()[0]
 			data = {
-				'player_id': PLAYER_STATS['PLAYER_ID'],
-				'player_name': PLAYER_STATS['PLAYER_NAME'],
-				'player_height': PLAYER_INFO['HEIGHT'],
-				'player_weight': PLAYER_INFO['WEIGHT'],
-				'player_dob': PLAYER_INFO['BIRTHDATE'],
-				'player_exp': PLAYER_INFO['SEASON_EXP'],
-				'player_position': PLAYER_INFO['POSITION'],
-				'player_team': PLAYER_INFO['TEAM_NAME'],
-				'player_ppg': PLAYER_STATS['PTS'],
-				'player_rpg': PLAYER_STATS['REB'],
-				'player_apg': PLAYER_STATS['AST'],
-				'player_pie': PLAYER_STATS['PIE'],
-				'profile_pic': get_profile_pic(PLAYER_INFO),
+				'player_id': player_stats['PLAYER_ID'],
+				'player_name': player_stats['PLAYER_NAME'],
+				'player_height': player_info['HEIGHT'],
+				'player_weight': player_info['WEIGHT'],
+				'player_dob': player_info['BIRTHDATE'],
+				'player_exp': player_info['SEASON_EXP'],
+				'player_position': player_info['POSITION'],
+				'player_team': player_info['TEAM_NAME'],
+				'player_ppg': player_stats['PTS'],
+				'player_rpg': player_stats['REB'],
+				'player_apg': player_stats['AST'],
+				'player_pie': player_stats['PIE'],
+				'profile_pic': get_profile_pic(player_info),
 			}
 
 		except StopIteration:
 			return 'Oops it appears that player doesn\'t exist. Please try again.'
 
-		if PLAYER_INFO['SCHOOL'] is None:
-			data['prior'] = PLAYER_INFO['COUNTRY']
+		if player_info['SCHOOL'] is None:
+			data['prior'] = player_info['COUNTRY']
 		else:
-			data['prior'] = PLAYER_INFO['SCHOOL']
+			data['prior'] = player_info['SCHOOL']
 
-		if get_per(PLAYER_INFO) is None:
+		if get_per(player_info) is None:
 			data['player_per'] = 0
 		else:
-			data['player_per'] = get_per(PLAYER_INFO)
+			data['player_per'] = get_per(player_info)
 
 		check_player = PlayerProfile.query.filter_by(pid=pid).first()
 		has_player = True if check_player is not None else False
