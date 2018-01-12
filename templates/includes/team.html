@@ -3,6 +3,7 @@
     <ul>
         {% for player in current_user.players %}
         <li style="list-style: none;">
+            <img src="{{player.picture}}" alt="{{player.full_name}}" height="75" width="100">
             <p>Name: {{player.full_name}}</p>
             <p>PPG: {{player.stats.ppg}}</p>
             <p>RPG: {{player.stats.rpg}}</p>
