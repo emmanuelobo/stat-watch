@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_login import LoginManager, current_user, login_user, logout_user
 from flask_migrate import Migrate
@@ -74,12 +75,13 @@ def search():
 			searched_player = player.PlayerSummary(pid)
 			player_stats = searched_player.headline_stats()[0]
 			player_info = searched_player.info()[0]
+			date = datetime.datetime.strptime(player_info['BIRTHDATE'], '%Y-%m-%dT00:00:00')
+			dob = f'{date.month}/{date.day}/{date.year}'
 			data = {
 				'player_id': player_stats['PLAYER_ID'],
 				'player_name': player_stats['PLAYER_NAME'],
 				'player_height': player_info['HEIGHT'],
 				'player_weight': player_info['WEIGHT'],
-				'player_dob': player_info['BIRTHDATE'],
 				'player_exp': player_info['SEASON_EXP'],
 				'player_position': player_info['POSITION'],
 				'player_team': player_info['TEAM_NAME'],
@@ -87,7 +89,9 @@ def search():
 				'player_rpg': player_stats['REB'],
 				'player_apg': player_stats['AST'],
 				'player_pie': player_stats['PIE'],
+				'player_per': get_per(player_info),
 				'profile_pic': get_profile_pic(player_info),
+				'player_dob': dob,
 			}
 
 		except StopIteration:
