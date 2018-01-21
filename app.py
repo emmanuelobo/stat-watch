@@ -73,6 +73,8 @@ def search():
 		try:
 			pid = get_player(first_name, last_name)
 			searched_player = player.PlayerSummary(pid)
+			player_dashboard = player.PlayerGameLogs(pid)
+			print(player_dashboard.info()[0])
 			player_stats = searched_player.headline_stats()[0]
 			player_info = searched_player.info()[0]
 			date = datetime.datetime.strptime(player_info['BIRTHDATE'], '%Y-%m-%dT00:00:00')
@@ -155,6 +157,7 @@ def remove_player(id):
 
 	flash('Player removed from your team')
 	return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
 	login_manager.init_app(app)

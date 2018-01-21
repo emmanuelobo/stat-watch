@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "86d56409aa1aaf9097794eaefea52ffc523d57ee2c9fb7235740a962a8f6cce3"
+            "sha256": "7c52a75b302f5854402ee63e7c7e5f45f7012f684310d962bc16075db1c28713"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -29,9 +29,9 @@
     "default": {
         "alembic": {
             "hashes": [
-                "sha256:042851ebe9efa07be6dc1395b1793b6c1d8964a39b73a0ce1649e2bcd41ea732"
+                "sha256:46f4849c6dce69f54dd5001b3215b6a983dee6b17512efee10e237fa11f20cfa"
             ],
-            "version": "==0.9.6"
+            "version": "==0.9.7"
         },
         "beautifulsoup4": {
             "hashes": [
@@ -202,6 +202,13 @@
             ],
             "version": "==2.18.4"
         },
+        "requests-cache": {
+            "hashes": [
+                "sha256:e9270030becc739b0a7f7f834234c73a878b2d794122bf76f40055a22419eb67",
+                "sha256:fe561ca119879bbcfb51f03a35e35b425e18f338248e59fd5cf2166c77f457a2"
+            ],
+            "version": "==0.4.13"
+        },
         "six": {
             "hashes": [
                 "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb",
@@ -211,9 +218,9 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:7dda3e0b1b12215e3bb05368d1abbf7d747112a43738e0a4e6deb466b83fd88e"
+                "sha256:9ede7070d6fd18f28058be88296ed67893e2637465516d6a596cd9afea97b154"
             ],
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "urllib3": {
             "hashes": [

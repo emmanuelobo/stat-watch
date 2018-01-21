@@ -1,17 +1,32 @@
-<div class="tc">
+<div class="container">
     {% if current_user.players %}
-    <ul>
         {% for player in current_user.players %}
-        <li style="list-style: none;">
-            <img src="{{player.picture}}" alt="{{player.full_name}}" height="75" width="100">
-            <p>Name: {{player.full_name}}</p>
-            <p>PPG: {{player.stats.ppg}}</p>
-            <p>RPG: {{player.stats.rpg}}</p>
-            <p>APG: {{player.stats.apg}}</p>
-            <p>Team: {{player.team}}</p>
-        </li>
-        <br>
+        <div class="player-card h5">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{player.picture}}" class="player-profile-pic" alt="avatar" >
+                        <h1 class="f4">{{player.full_name}}</h1>
+                    </div>
+
+                    <div class="col-md-3 stat-field">
+                        <h3>PPG</h3>
+                        <p>{{player.stats.ppg}}</p>
+                    </div>
+
+                    <div class="col-md-3 stat-field">
+                        <h3>RPG</h3>
+                        <p>{{player.stats.rpg}}</p>
+                    </div>
+
+                    <div class="col-md-3 stat-field">
+                        <h3>APG</h3>
+                        <p>{{player.stats.apg}}</p>
+                    </div>
+
+
+
+                </div>
+        </div>
         {% endfor %}
-    </ul>
     {% endif %}
 </div>

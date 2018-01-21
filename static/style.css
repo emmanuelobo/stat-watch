@@ -1,3 +1,15 @@
 .stat-item{
     font-family: 'Quicksand', Arial, sans-serif;
 }
+
+.stat-field{
+    border: 1px solid black;
+}
+
+.player-profile-pic{
+    border: 5px solid black;
+}
+
+.link.dim.f6.f5-ns.dib.mr3:hover {
+    text-decoration: none !important;
+}

@@ -7,17 +7,18 @@ name = "pypi"
 
 [packages]
 
-Flask = "*"
+flask = "*"
 requests = "*"
-Flask-SQLAlchemy = "*"
-nba_py = "*"
+flask-sqlalchemy = "*"
+nba-py = "*"
 python-decouple = "*"
 "beautifulsoup4" = "*"
 "psycopg2" = "*"
-Flask-Login = "*"
-Flask-WTF = "*"
-Flask-Migrate = "*"
-Flask-Script = "*"
+flask-login = "*"
+flask-wtf = "*"
+flask-migrate = "*"
+flask-script = "*"
+requests-cache = "*"
 
 
 [dev-packages]
