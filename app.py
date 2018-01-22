@@ -150,7 +150,8 @@ def add_player(id):
 			'position': request.form['player_position'],
 			'picture': request.form['profile_pic'],
 			'dob': request.form['player_dob'],
-			'user_id': current_user.id
+			'user_id': current_user.id,
+			'pid': id
 		}
 
 		player_stats = {
@@ -207,7 +208,9 @@ def add_player(id):
 def remove_player(id):
 	player = PlayerProfile.query.filter_by(pid=id).first()
 	stats = player.stats
+	last_game_stats = player.last_game_stats
 	db.session.delete(stats)
+	db.session.delete(last_game_stats)
 	db.session.delete(player)
 	db.session.commit()
 
