@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from nba_py.player import get_player
 from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
-from scripts.models import User, PlayerStats, PlayerProfile
+from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.player import get_profile_pic, get_per
 from __init__ import generate_app, db
 
@@ -73,8 +73,7 @@ def search():
 		try:
 			pid = get_player(first_name, last_name)
 			searched_player = player.PlayerSummary(pid)
-			player_dashboard = player.PlayerGameLogs(pid)
-			print(player_dashboard.info()[0])
+			player_last_game = player.PlayerGameLogs(pid).info()[0]
 			player_stats = searched_player.headline_stats()[0]
 			player_info = searched_player.info()[0]
 			date = datetime.datetime.strptime(player_info['BIRTHDATE'], '%Y-%m-%dT00:00:00')
@@ -94,6 +93,29 @@ def search():
 				'player_per': get_per(player_info),
 				'profile_pic': get_profile_pic(player_info),
 				'player_dob': dob,
+				'last_game_date': player_last_game['GAME_DATE'],
+				'last_game_result': player_last_game['WL'],
+				'last_game_matchup': player_last_game['MATCHUP'],
+				'last_game_minutes': player_last_game['MIN'],
+				'last_game_field_goal_pct': player_last_game['FG_PCT'],
+				'last_game_field_goals_made': player_last_game['FGM'],
+				'last_game_field_goals_attempted': player_last_game['FGA'],
+				'last_game_three_pt_field_goal_pct': player_last_game['FG3_PCT'],
+				'last_game_three_pt_field_goals_made': player_last_game['FG3M'],
+				'last_game_three_pt_field_goals_attempted': player_last_game['FG3A'],
+				'last_game_free_throw_pct': player_last_game['FT_PCT'],
+				'last_game_free_throws_made': player_last_game['FTM'],
+				'last_game_free_throws_attempted': player_last_game['FTA'],
+				'last_game_points': player_last_game['PTS'],
+				'last_game_rebounds': player_last_game['REB'],
+				'last_game_offensive_rebounds': player_last_game['OREB'],
+				'last_game_defensive_rebounds': player_last_game['DREB'],
+				'last_game_assists': player_last_game['AST'],
+				'last_game_steals': player_last_game['STL'],
+				'last_game_blocks': player_last_game['BLK'],
+				'last_game_turnovers': player_last_game['TOV'],
+				'last_game_plus_minus': player_last_game['PLUS_MINUS'],
+				'last_game_fouls': player_last_game['PF']
 			}
 
 		except StopIteration:
@@ -118,29 +140,63 @@ def search():
 @app.route('/player/<id>/added', methods=['POST', 'GET'])
 def add_player(id):
 	if request.method == 'POST':
-		prior = request.form['prior']
-		name = request.form['player_name']
-		height = request.form['player_height']
-		weight = request.form['player_weight']
-		exp = request.form['player_exp']
-		team = request.form['player_team']
-		position = request.form['player_position']
-		ppg = request.form['player_ppg']
-		apg = request.form['player_apg']
-		rpg = request.form['player_rpg']
-		pie = request.form['player_pie']
-		per = request.form['player_per']
-		profile_pic = request.form['profile_pic']
-		dob = request.form['player_dob']
+		player_profile = {
+			'prior': request.form['prior'],
+			'full_name': request.form['player_name'],
+			'height': request.form['player_height'],
+			'weight': request.form['player_weight'],
+			'experience': request.form['player_exp'],
+			'team': request.form['player_team'],
+			'position': request.form['player_position'],
+			'picture': request.form['profile_pic'],
+			'dob': request.form['player_dob'],
+			'user_id': current_user.id
+		}
 
-		profile = PlayerProfile(full_name=name, pid=id, height=height, weight=weight, experience=exp, position=position,
-								team=team, user_id=current_user.id, prior=prior, picture=profile_pic, dob=dob)
-		stats = PlayerStats(ppg=ppg, apg=apg, rpg=rpg, pie=pie, per=per)
+		player_stats = {
+			'ppg': request.form['player_ppg'],
+			'apg': request.form['player_apg'],
+			'rpg': request.form['player_rpg'],
+			'pie': request.form['player_pie'],
+			'per': request.form['player_per'],
+		}
 
-		current_user.players.append(profile)
+		last_game = {
+			'date': request.form['last_game_date'],
+			'result': request.form['last_game_result'],
+			'minutes': int(request.form['last_game_minutes']),
+			'matchup': request.form['last_game_matchup'],
+			'points': int(request.form['last_game_points']),
+			'rebounds': int(request.form['last_game_rebounds']),
+			'offensive_rebounds': request.form['last_game_offensive_rebounds'],
+			'defensive_rebounds': request.form['last_game_defensive_rebounds'],
+			'assists': int(request.form['last_game_assists']),
+			'steals': int(request.form['last_game_steals']),
+			'blocks': int(request.form['last_game_blocks']),
+			'fouls': int(request.form['last_game_fouls']),
+			'turnovers': int(request.form['last_game_turnovers']),
+			'plus_minus': int(request.form['last_game_plus_minus']),
+			'field_goals_made': int(request.form['last_game_field_goals_made']),
+			'field_goals_attempted': int(request.form['last_game_field_goals_attempted']),
+			'three_pointers_made': int(request.form['last_game_three_pt_field_goals_made']),
+			'three_pointers_attempted': int(request.form['last_game_three_pt_field_goals_attempted']),
+			'free_throws_made': int(request.form['last_game_free_throws_made']),
+			'free_throws_attempted': int(request.form['last_game_free_throws_attempted']),
+			'field_goal_percentage': float(request.form['last_game_field_goal_pct']),
+			'three_point_field_goal_percentage': float(request.form['last_game_three_pt_field_goal_pct']),
+			'free_throw_percentage': request.form['last_game_free_throw_pct'],
+		}
+
+		profile = PlayerProfile(**player_profile)
+		stats = PlayerStats(**player_stats)
+		last_game_stats = LastGameStats(**last_game)
+
 		profile.stats = stats
+		profile.last_game_stats = last_game_stats
+		current_user.players.append(profile)
 		db.session.add(profile)
 		db.session.add(stats)
+		db.session.add(last_game_stats)
 		db.session.commit()
 
 		flash('Player successfully added.')

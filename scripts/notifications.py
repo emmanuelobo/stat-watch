@@ -1,7 +1,3 @@
-
-
-
-
 def career_high_points():
 	"""
 	Alert the user when one of his players has a career game in points

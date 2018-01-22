@@ -24,6 +24,17 @@
           </div>
         </article>
 
+        <div class="row">
+            <h1>Last Game</h1>
+            <div class="col-md-1">Matchup {{last_game_matchup}}</div>
+            <div class="col-md-1">Minutes: {{last_game_minutes}}</div>
+            <div class="col-md-1">Points: {{last_game_points}}</div>
+            <div class="col-md-1">Rebounds: {{last_game_rebounds}}</div>
+            <div class="col-md-1">Assists: {{last_game_assists}}</div>
+            <div class="col-md-1">Steals: {{last_game_steals}}</div>
+            <div class="col-md-1">Blocks: {{last_game_blocks}}</div>
+        </div>
+
         {% if current_user.is_authenticated %}
         {% if has_player %}
         <form action="{{url_for('remove_player', id=player_id)}}" method="post">
@@ -45,6 +56,29 @@
             <input type="hidden" value="{{player_pie}}" name="player_pie">
             <input type="hidden" value="{{player_per}}" name="player_per">
             <input type="hidden" value="{{prior}}" name="prior">
+            <input type="hidden" value="{{last_game_date}}" name="last_game_date">
+            <input type="hidden" value="{{last_game_result}}" name="last_game_result">
+            <input type="hidden" value="{{last_game_matchup}}" name="last_game_matchup">
+            <input type="hidden" value="{{last_game_minutes}}" name="last_game_minutes">
+            <input type="hidden" value="{{last_game_field_goal_pct}}" name="last_game_field_goal_pct">
+            <input type="hidden" value="{{last_game_field_goals_made}}" name="last_game_field_goals_made">
+            <input type="hidden" value="{{last_game_field_goals_attempted}}" name="last_game_field_goals_attempted">
+            <input type="hidden" value="{{last_game_three_pt_field_goal_pct}}" name="last_game_three_pt_field_goal_pct">
+            <input type="hidden" value="{{last_game_three_pt_field_goals_made}}" name="last_game_three_pt_field_goals_made">
+            <input type="hidden" value="{{last_game_three_pt_field_goals_attempted}}" name="last_game_three_pt_field_goals_attempted">
+            <input type="hidden" value="{{last_game_free_throw_pct}}" name="last_game_free_throw_pct">
+            <input type="hidden" value="{{last_game_free_throws_made}}" name="last_game_free_throws_made">
+            <input type="hidden" value="{{last_game_free_throws_attempted}}" name="last_game_free_throws_attempted">
+            <input type="hidden" value="{{last_game_points}}" name="last_game_points">
+            <input type="hidden" value="{{last_game_rebounds}}" name="last_game_rebounds">
+            <input type="hidden" value="{{last_game_defensive_rebounds}}" name="last_game_defensive_rebounds">
+            <input type="hidden" value="{{last_game_offensive_rebounds}}" name="last_game_offensive_rebounds">
+            <input type="hidden" value="{{last_game_assists}}" name="last_game_assists">
+            <input type="hidden" value="{{last_game_steals}}" name="last_game_steals">
+            <input type="hidden" value="{{last_game_blocks}}" name="last_game_blocks">
+            <input type="hidden" value="{{last_game_turnovers}}" name="last_game_turnovers">
+            <input type="hidden" value="{{last_game_plus_minus}}" name="last_game_plus_minus">
+            <input type="hidden" value="{{last_game_fouls}}" name="last_game_fouls">
             <input type="submit" value="Add">
         </form>
         {% endif %}
