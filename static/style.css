@@ -13,3 +13,18 @@
 .link.dim.f6.f5-ns.dib.mr3:hover {
     text-decoration: none !important;
 }
+
+.table td, .table th{
+    vertical-align: middle !important;
+    font-family: "Quicksand", Arial, sans-serif;
+}
+
+.remove-player-btn{
+    color: red;
+    font-size: 25px;
+}
+
+.remove-player-btn:hover{
+    text-decoration: none !important;
+    color: darkred !important;
+}

@@ -1,32 +1,43 @@
 <div class="container">
     {% if current_user.players %}
-        {% for player in current_user.players %}
-        <div class="player-card h5">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="{{player.picture}}" class="player-profile-pic" alt="avatar" >
-                        <h1 class="f4">{{player.full_name}}</h1>
-                    </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Player</th>
+              <th scope="col">Matchup</th>
+              <th scope="col">Minutes</th>
+              <th scope="col">Points</th>
+              <th scope="col">Rebounds</th>
+              <th scope="col">Assists</th>
+              <th scope="col">Steals</th>
+              <th scope="col">Blocks</th>
+              <th scope="col">Turnovers</th>
 
-                    <div class="col-md-3 stat-field">
-                        <h3>PPG</h3>
-                        <p>{{player.stats.ppg}}</p>
-                    </div>
+            </tr>
+          </thead>
+          <tbody>
+          {% for player in current_user.players %}
+            <tr>
+              <td>
+                <img src="{{player.picture}}" style="width: 40%;" alt="avatar" >
+                <h6 style="color: steelblue;">{{player.full_name}}</h6>
+              </td>
+              <td>{{player.last_game_stats.matchup}}</td>
+              <td>{{player.last_game_stats.minutes}}</td>
+              <td>{{player.last_game_stats.points}}</td>
+              <td>{{player.last_game_stats.rebounds}}</td>
+              <td>{{player.last_game_stats.assists}}</td>
+              <td>{{player.last_game_stats.steals}}</td>
+              <td>{{player.last_game_stats.blocks}}</td>
+              <td>{{player.last_game_stats.turnovers}}</td>
 
-                    <div class="col-md-3 stat-field">
-                        <h3>RPG</h3>
-                        <p>{{player.stats.rpg}}</p>
-                    </div>
+                <td>
+                    <a class="remove-player-btn" href="{{url_for('remove_player', id=player.pid)}}">&times;</a>
+                </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
 
-                    <div class="col-md-3 stat-field">
-                        <h3>APG</h3>
-                        <p>{{player.stats.apg}}</p>
-                    </div>
-
-
-
-                </div>
-        </div>
-        {% endfor %}
     {% endif %}
 </div>

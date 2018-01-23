@@ -24,15 +24,17 @@
           </div>
         </article>
 
+        <h4>Last Game</h4>
         <div class="row">
-            <h1>Last Game</h1>
-            <div class="col-md-1">Matchup {{last_game_matchup}}</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">Matchup: {{last_game_matchup}}</div>
             <div class="col-md-1">Minutes: {{last_game_minutes}}</div>
             <div class="col-md-1">Points: {{last_game_points}}</div>
             <div class="col-md-1">Rebounds: {{last_game_rebounds}}</div>
             <div class="col-md-1">Assists: {{last_game_assists}}</div>
             <div class="col-md-1">Steals: {{last_game_steals}}</div>
             <div class="col-md-1">Blocks: {{last_game_blocks}}</div>
+            <div class="col-md-1">Outcome: {{last_game_result}}</div>
         </div>
 
         {% if current_user.is_authenticated %}
