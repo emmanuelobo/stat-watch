@@ -136,6 +136,13 @@ def search():
 
 	return render_template('searched_player.html', **data, has_player=has_player)
 
+@app.route('/player/<id>', methods=['POST', 'GET'])
+def player_page(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0]),
+	return render_template('player.html', stats=stats, profile_pic=profile_pic)
+
 
 @app.route('/player/<id>/added', methods=['POST', 'GET'])
 def add_player(id):

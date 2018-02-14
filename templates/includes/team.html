@@ -19,7 +19,7 @@
           {% for player in current_user.players %}
             <tr>
               <td>
-                <a href="#">
+                <a href="{{url_for('player_page', id=player.pid)}}">
                   <img src="{{player.picture}}" style="width: 40%;" alt="avatar" >
                   <h6 style="color: steelblue;">{{player.full_name}}</h6>
                 </a>

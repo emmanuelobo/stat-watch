@@ -19,6 +19,7 @@ flask-wtf = "*"
 flask-migrate = "*"
 flask-script = "*"
 requests-cache = "*"
+celery = "*"
 
 
 [dev-packages]
