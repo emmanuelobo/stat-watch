@@ -1,7 +1,6 @@
 import datetime
-from flask import Flask, render_template, request, url_for, redirect, flash
+from flask import render_template, request, url_for, redirect, flash
 from flask_login import LoginManager, current_user, login_user, logout_user
-from flask_migrate import Migrate
 
 from nba_py.player import get_player
 from nba_py import player
@@ -140,7 +139,7 @@ def search():
 def player_page(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0]),
+	profile_pic = get_profile_pic(current_player.info()[0])
 	return render_template('player.html', stats=stats, profile_pic=profile_pic)
 
 
@@ -207,7 +206,6 @@ def add_player(id):
 		db.session.add(last_game_stats)
 		db.session.commit()
 
-		flash('Player successfully added.')
 		return redirect(url_for('home'))
 
 
@@ -221,7 +219,6 @@ def remove_player(id):
 	db.session.delete(player)
 	db.session.commit()
 
-	flash('Player removed from your team')
 	return redirect(url_for('home'))
 
 
