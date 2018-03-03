@@ -133,7 +133,8 @@ def search():
 		check_player = PlayerProfile.query.filter_by(pid=pid).first()
 		has_player = True if check_player is not None else False
 
-	return render_template('searched_player.html', **data, has_player=has_player)
+	# return render_template('searched_player.html', **data, has_player=has_player)
+	return redirect(url_for('player_page', id=data['player_id']))
 
 
 @app.route('/player/<id>', methods=['POST', 'GET'])

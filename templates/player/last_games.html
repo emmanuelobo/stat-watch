@@ -9,7 +9,7 @@
         <li class="player-sidebar-menu-item"><a href="{{url_for('player_page', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Profile</a></li>
         <li class="player-sidebar-menu-item active"><a href="#" class="player-sidebar-menu-item-text">Last Game(s)</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('analytics', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Analytics </a></li>
-        <li class="player-sidebar-menu-item"><a href="{{url_for('compare')}}">Compare</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('compare')}}" class="player-sidebar-menu-item-text">Compare</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('career_stats', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Career Stats</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('news', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">News</a></li>
     </ul>
