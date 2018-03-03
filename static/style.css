@@ -47,6 +47,14 @@
     color: bisque;
 }
 
+.active{
+    background-color: #efefefb3;
+    border-radius: 5px;
+    font-weight: bold;
+    color: bisque;
+    text-decoration: none !important;
+}
+
 .player-sidebar-menu-item-text:hover{
     text-decoration: none !important;
 }

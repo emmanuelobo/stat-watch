@@ -1,0 +1,17 @@
+{% extends 'player_sidenav.html' %}
+
+{% block title %}
+<title>Career Stats</title>
+{% endblock %}
+
+
+{% block sidebar %}
+    <ul class="player-sidebar-menu">
+        <li class="player-sidebar-menu-item"><a href="{{url_for('player_page', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Profile</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('last_games', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Last Game(s)</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('analytics', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Analytics</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('compare')}}" class="player-sidebar-menu-item-text">Compare</a></li>
+        <li class="player-sidebar-menu-item active"><a href="#" class="player-sidebar-menu-item-text">Career Stats</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('news', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">News</a></li>
+    </ul>
+{% endblock %}

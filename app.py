@@ -135,12 +135,50 @@ def search():
 
 	return render_template('searched_player.html', **data, has_player=has_player)
 
+
 @app.route('/player/<id>', methods=['POST', 'GET'])
 def player_page(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('player.html', stats=stats, profile_pic=profile_pic)
+	return render_template('/player/profile.html', stats=stats, profile_pic=profile_pic)
+
+
+@app.route('/player/<id>/careerstats', methods=['POST', 'GET'])
+def career_stats(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0])
+	return render_template('/player/career_stats.html', stats=stats, profile_pic=profile_pic)
+
+
+@app.route('/player/<id>/lastgames', methods=['POST', 'GET'])
+def last_games(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0])
+	return render_template('/player/last_games.html', stats=stats, profile_pic=profile_pic)
+
+
+@app.route('/player/<id>/analytics', methods=['POST', 'GET'])
+def analytics(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0])
+	return render_template('/player/analytics.html', stats=stats, profile_pic=profile_pic)
+
+
+@app.route('/player/<id>/news', methods=['POST', 'GET'])
+def news(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0])
+	return render_template('/player/news.html', stats=stats, profile_pic=profile_pic)
+
+
+@app.route('/player/compare', methods=['POST', 'GET'])
+def compare():
+	return render_template('/compare.html')
 
 
 @app.route('/player/<id>/added', methods=['POST', 'GET'])

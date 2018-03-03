@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="sidebar">
+
+    <div class="tc pa3 profilepic">
+        <img class="br-100 pa1 ba b--black-10" style="width: 9.5em;height: 8.5em;" src="{{profile_pic}}" alt="avatar">
+        <h5 style="font-family: quicksand;color: #355f83;">{{stats['PLAYER_NAME']}}</h5>
+    </div>
+
+    {% block sidebar %}
+    {% endblock %}
+</div>
+
+{% endblock %}
+
