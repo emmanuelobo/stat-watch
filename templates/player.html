@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<div>
-    <h1>{{stats['PLAYER_NAME']}}</h1>
-    <img src="{{profile_pic}}" alt="avatar">
+<div class="sidebar">
 
-    <ul>
-        <li>Profile</li>
-        <li>Last Game</li>
-        <li>Analytics</li>
-        <li>Compare</li>
-        <li>Career Stats</li>
-        <li>News</li>
+    <div class="tc pa3 profilepic">
+        <img class="br-100 pa1 ba b--black-10" style="width: 9.5em;height: 8.5em;" src="{{profile_pic}}" alt="avatar">
+        <h5 style="font-family: quicksand;color: #355f83;">{{stats['PLAYER_NAME']}}</h5>
+    </div>
+
+    <ul class="player-sidebar-menu">
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">Profile</a></li>
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">Last Game</a></li>
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">Analytics</a></li>
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">Compare</a></li>
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">Career Stats</a></li>
+        <li class="player-sidebar-menu-item"><a href="#" class="player-sidebar-menu-item-text">News</a></li>
     </ul>
 </div>
-
-<a href="{{url_for('home')}}">Home</a>
 
 {% endblock %}

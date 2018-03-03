@@ -28,3 +28,41 @@
     text-decoration: none !important;
     color: darkred !important;
 }
+
+.player-sidebar-menu{
+    list-style: none;
+    margin-right: 35px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.player-sidebar-menu-item{
+    margin-bottom: 40px;
+}
+
+.player-sidebar-menu-item:hover {
+    background-color: #efefefb3;
+    border-radius: 5px;
+    font-weight: bold;
+    color: bisque;
+}
+
+.player-sidebar-menu-item-text:hover{
+    text-decoration: none !important;
+}
+
+.player-sidebar-menu-item-text{
+    color: #3d7fc6;
+    font-family: Jura;
+}
+
+.sidebar{
+    position: fixed;
+    float: left;
+    height: 100%;
+    width: 17.5%;
+    padding-left: 10px;
+    text-align: center;
+    top: 92px;
+    box-shadow: 1px 1px 1px 0px lightgrey;
+}
