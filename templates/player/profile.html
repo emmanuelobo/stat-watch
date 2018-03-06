@@ -21,19 +21,22 @@
 
     {% block body %}
         <div class="" style="height: 41em;margin-left:  17.6%; margin-top: 3.5px; background-color: #f9f8f8;">
-            <div class="row">
-                <div class="col-md-2">Height: {{info['HEIGHT']}}</div>
-                <div class="col-md-2">Weight: {{info['WEIGHT']}}lbs</div>
-                <div class="col-md-2">Experience: {{info['SEASON_EXP']}}</div>
-                <div class="col-md-2">Position: {{info['POSITION']}}</div>
-                <div class="col-md-2">Team: {{info['TEAM_NAME']}}</div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3">{{stats['PTS']}} PPG</div>
-                <div class="col-md-3">{{stats['REB']}} RPG</div>
-                <div class="col-md-3">{{stats['AST']}} APG</div>
-                <div class="col-md-3">{{stats['PIE']}} PIE</div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">Height: {{info['HEIGHT']}}</div>
+                    <div class="col-md-2">Weight: {{info['WEIGHT']}}lbs</div>
+                    <div class="col-md-2">Experience: {{info['SEASON_EXP']}}</div>
+                    <div class="col-md-2">Position: {{info['POSITION']}}</div>
+                    <div class="col-md-2">Team: {{info['TEAM_NAME']}}</div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3">{{stats['PTS']}} PPG</div>
+                    <div class="col-md-3">{{stats['REB']}} RPG</div>
+                    <div class="col-md-3">{{stats['AST']}} APG</div>
+                    <div class="col-md-3">{{stats['PIE']}} PIE</div>
+                </div>
             </div>
         </div>
     {% endblock %}
