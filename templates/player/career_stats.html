@@ -10,8 +10,14 @@
         <li class="player-sidebar-menu-item"><a href="{{url_for('player_page', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Profile</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('last_games', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Last Game(s)</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('analytics', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Analytics</a></li>
-        <li class="player-sidebar-menu-item"><a href="{{url_for('compare')}}" class="player-sidebar-menu-item-text">Compare</a></li>
+        <li class="player-sidebar-menu-item"><a href="{{url_for('compare', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">Compare</a></li>
         <li class="player-sidebar-menu-item active"><a href="#" class="player-sidebar-menu-item-text" class="player-sidebar-menu-item-text">Career Stats</a></li>
         <li class="player-sidebar-menu-item"><a href="{{url_for('news', id=stats['PLAYER_ID'])}}" class="player-sidebar-menu-item-text">News</a></li>
     </ul>
 {% endblock %}
+
+    {% block body %}
+        <div class="" style="height: 41em;margin-left:  17.6%; margin-top: 3.5px; background-color: #f9f8f8;">
+
+        </div>
+    {% endblock %}

@@ -137,15 +137,16 @@ def search():
 	return redirect(url_for('player_page', id=data['player_id']))
 
 
-@app.route('/player/<id>', methods=['POST', 'GET'])
+@app.route('/players/<id>', methods=['POST', 'GET'])
 def player_page(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
+	info = current_player.info()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('/player/profile.html', stats=stats, profile_pic=profile_pic)
+	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic)
 
 
-@app.route('/player/<id>/careerstats', methods=['POST', 'GET'])
+@app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
 def career_stats(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
@@ -153,7 +154,7 @@ def career_stats(id):
 	return render_template('/player/career_stats.html', stats=stats, profile_pic=profile_pic)
 
 
-@app.route('/player/<id>/lastgames', methods=['POST', 'GET'])
+@app.route('/players/<id>/lastgames', methods=['POST', 'GET'])
 def last_games(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
@@ -161,7 +162,7 @@ def last_games(id):
 	return render_template('/player/last_games.html', stats=stats, profile_pic=profile_pic)
 
 
-@app.route('/player/<id>/analytics', methods=['POST', 'GET'])
+@app.route('/players/<id>/analytics', methods=['POST', 'GET'])
 def analytics(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
@@ -169,7 +170,7 @@ def analytics(id):
 	return render_template('/player/analytics.html', stats=stats, profile_pic=profile_pic)
 
 
-@app.route('/player/<id>/news', methods=['POST', 'GET'])
+@app.route('/players/<id>/news', methods=['POST', 'GET'])
 def news(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
@@ -177,12 +178,15 @@ def news(id):
 	return render_template('/player/news.html', stats=stats, profile_pic=profile_pic)
 
 
-@app.route('/player/compare', methods=['POST', 'GET'])
-def compare():
-	return render_template('/compare.html')
+@app.route('/players/<id>/compare', methods=['POST', 'GET'])
+def compare(id):
+	current_player = player.PlayerSummary(id)
+	stats = current_player.headline_stats()[0]
+	profile_pic = get_profile_pic(current_player.info()[0])
+	return render_template('/player/compare.html', stats=stats, profile_pic=profile_pic)
 
 
-@app.route('/player/<id>/added', methods=['POST', 'GET'])
+@app.route('/players/<id>/added', methods=['POST', 'GET'])
 def add_player(id):
 	if request.method == 'POST':
 		player_profile = {
@@ -248,7 +252,7 @@ def add_player(id):
 		return redirect(url_for('home'))
 
 
-@app.route('/player/<id>/removed', methods=['POST', 'GET'])
+@app.route('/players/<id>/removed', methods=['POST', 'GET'])
 def remove_player(id):
 	player = PlayerProfile.query.filter_by(pid=id).first()
 	stats = player.stats

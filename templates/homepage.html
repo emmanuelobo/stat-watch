@@ -7,7 +7,7 @@
     {% block content %}
     <main id="app" role="main">
         <div class="jumbotron tc">
-            <h4>[[message]]</h4>
+            <h4>Players</h4>
         </div>
 
         <div class="tc">
@@ -19,15 +19,5 @@
             {%endif%}
         </div>
     </main>
-
-    <script>
-        new Vue({
-            delimiters: ['[[', ']]'],
-            el: '#app',
-            data: {
-                message: 'Players'
-            }
-        })
-    </script>
     {% endblock %}
 
