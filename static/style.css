@@ -74,3 +74,29 @@
     top: 94px;
     box-shadow: 1px 1px 1px 0px lightgrey;
 }
+
+.add-remove-btn{
+    margin-top: -30px;
+    width:  50%;
+    height:  3.5%;
+    padding-top: 0px;
+    margin-left: 7.5px;
+}
+
+.player-profile-attributes{
+    border: 1px solid;
+    margin: 2% auto;
+    height: 100px;
+}
+
+.profile-content{
+    padding-top: 4%;
+}
+
+.player-attribute{
+    font-size: 21px;
+    text-align:  center;
+    margin-top: 33px;
+    font-family: Quicksand;
+    width: 100%;
+}

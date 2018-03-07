@@ -15,6 +15,13 @@
 
     {% block sidebar %}
     {% endblock %}
+
+    {% if has_player %}
+    <button class="btn btn-danger add-remove-btn">Drop Off</button>
+    {% else %}
+    <button class="btn btn-success add-remove-btn">Pick Up</button>
+    {% endif %}
+
 </div>
 
     {% block body %}

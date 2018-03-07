@@ -22,20 +22,47 @@
     {% block body %}
         <div class="" style="height: 41em;margin-left:  17.6%; margin-top: 3.5px; background-color: #f9f8f8;">
 
-            <div class="container">
+            <div class="container profile-content">
                 <div class="row">
-                    <div class="col-md-2">Height: {{info['HEIGHT']}}</div>
-                    <div class="col-md-2">Weight: {{info['WEIGHT']}}lbs</div>
-                    <div class="col-md-2">Experience: {{info['SEASON_EXP']}}</div>
-                    <div class="col-md-2">Position: {{info['POSITION']}}</div>
-                    <div class="col-md-2">Team: {{info['TEAM_NAME']}}</div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Height</small>
+                        <p class="player-attribute">{{info['HEIGHT']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Weight</small>
+                        <p class="player-attribute">{{info['WEIGHT']}}lbs</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Experience</small>
+                        <p class="player-attribute">{{info['SEASON_EXP']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Position</small>
+                        <p class="player-attribute">{{info['POSITION']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Team</small>
+                        <p class="player-attribute">{{info['TEAM_NAME']}}</p>
+                    </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-3">{{stats['PTS']}} PPG</div>
-                    <div class="col-md-3">{{stats['REB']}} RPG</div>
-                    <div class="col-md-3">{{stats['AST']}} APG</div>
-                    <div class="col-md-3">{{stats['PIE']}} PIE</div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">PPG</small>
+                        <p class="player-attribute">{{stats['PTS']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">RPG</small>
+                        <p class="player-attribute">{{stats['REB']}} </p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">APG</small>
+                        <p class="player-attribute">{{stats['AST']}} </p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">PIE</small>
+                        <p class="player-attribute">{{stats['PIE']}} </p>
+                    </div>
                 </div>
             </div>
         </div>
