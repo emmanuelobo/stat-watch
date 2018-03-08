@@ -34,7 +34,11 @@
                     </div>
                     <div class="col-md-2 player-profile-attributes">
                         <small style="float: right;">Experience</small>
+                        {% if info['SEASON_EXP'] == 0 %}
+                        <p class="player-attribute">Rookie</p>
+                        {% else %}
                         <p class="player-attribute">{{info['SEASON_EXP']}}</p>
+                        {% endif %}
                     </div>
                     <div class="col-md-2 player-profile-attributes">
                         <small style="float: right;">Position</small>
@@ -60,8 +64,8 @@
                         <p class="player-attribute">{{stats['AST']}} </p>
                     </div>
                     <div class="col-md-2 player-profile-attributes">
-                        <small style="float: right;">PIE</small>
-                        <p class="player-attribute">{{stats['PIE']}} </p>
+                        <small style="float: right;">PER</small>
+                        <p class="player-attribute">{{per}} </p>
                     </div>
                 </div>
             </div>

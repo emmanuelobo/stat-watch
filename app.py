@@ -148,7 +148,7 @@ def player_page(id):
 	stats = current_player.headline_stats()[0]
 	info = current_player.info()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic, has_player=has_player(id))
+	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic, has_player=has_player(id), per=get_per(info))
 
 
 @app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
