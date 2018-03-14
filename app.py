@@ -7,9 +7,8 @@ from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.player import get_profile_pic, get_per
-from __init__ import generate_app, db
+from app import app, db
 
-app = generate_app()
 login_manager = LoginManager(app)
 
 
@@ -17,6 +16,7 @@ def has_player(id):
 	check_player = PlayerProfile.query.filter_by(pid=id).first()
 	user_has_player = True if check_player is not None else False
 	return user_has_player
+
 
 @login_manager.user_loader
 def load_user(id):
