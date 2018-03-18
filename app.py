@@ -1,5 +1,7 @@
 import datetime
-from flask import render_template, request, url_for, redirect, flash
+import json
+
+from flask import render_template, request, url_for, redirect, flash, jsonify
 from flask_login import LoginManager, current_user, login_user, logout_user
 
 from nba_py.player import get_player
@@ -162,9 +164,10 @@ def career_stats(id):
 @app.route('/players/<id>/lastgames', methods=['POST', 'GET'])
 def last_games(id):
 	current_player = player.PlayerSummary(id)
+	last_game = player.PlayerGameLogs(id).info()[0]
 	stats = current_player.headline_stats()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('/player/last_games.html', stats=stats, profile_pic=profile_pic, has_player=has_player(id))
+	return render_template('/player/last_games.html', last_game=last_game, stats=stats, profile_pic=profile_pic, has_player=has_player(id))
 
 
 @app.route('/players/<id>/analytics', methods=['POST', 'GET'])
@@ -194,52 +197,58 @@ def compare(id):
 @app.route('/players/<id>/added', methods=['POST', 'GET'])
 def add_player(id):
 	if request.method == 'POST':
+		searched_player = player.PlayerSummary(id)
+		player_last_game = player.PlayerGameLogs(id).info()[0]
+		player_stats = searched_player.headline_stats()[0]
+		player_info = searched_player.info()[0]
+		date = datetime.datetime.strptime(player_info['BIRTHDATE'], '%Y-%m-%dT00:00:00')
+		dob = f'{date.month}/{date.day}/{date.year}'
+
 		player_profile = {
-			'prior': request.form['prior'],
-			'full_name': request.form['player_name'],
-			'height': request.form['player_height'],
-			'weight': request.form['player_weight'],
-			'experience': request.form['player_exp'],
-			'team': request.form['player_team'],
-			'position': request.form['player_position'],
-			'picture': request.form['profile_pic'],
-			'dob': request.form['player_dob'],
+			'full_name': player_stats['PLAYER_NAME'],
+			'height': player_info['HEIGHT'],
+			'weight': player_info['WEIGHT'],
+			'experience': player_info['SEASON_EXP'],
+			'position': player_info['POSITION'],
+			'team': player_info['TEAM_NAME'],
 			'user_id': current_user.id,
-			'pid': id
-		}
+			'pid': id,
+			'picture': get_profile_pic(player_info),
+			'dob': dob,
+			}
 
 		player_stats = {
-			'ppg': request.form['player_ppg'],
-			'apg': request.form['player_apg'],
-			'rpg': request.form['player_rpg'],
-			'pie': request.form['player_pie'],
-			'per': request.form['player_per'],
+			'ppg': player_stats['PTS'],
+			'rpg': player_stats['REB'],
+			'apg': player_stats['AST'],
+			'pie': player_stats['PIE'],
+			'per': get_per(player_info),
 		}
 
 		last_game = {
-			'date': request.form['last_game_date'],
-			'result': request.form['last_game_result'],
-			'minutes': int(request.form['last_game_minutes']),
-			'matchup': request.form['last_game_matchup'],
-			'points': int(request.form['last_game_points']),
-			'rebounds': int(request.form['last_game_rebounds']),
-			'offensive_rebounds': request.form['last_game_offensive_rebounds'],
-			'defensive_rebounds': request.form['last_game_defensive_rebounds'],
-			'assists': int(request.form['last_game_assists']),
-			'steals': int(request.form['last_game_steals']),
-			'blocks': int(request.form['last_game_blocks']),
-			'fouls': int(request.form['last_game_fouls']),
-			'turnovers': int(request.form['last_game_turnovers']),
-			'plus_minus': int(request.form['last_game_plus_minus']),
-			'field_goals_made': int(request.form['last_game_field_goals_made']),
-			'field_goals_attempted': int(request.form['last_game_field_goals_attempted']),
-			'three_pointers_made': int(request.form['last_game_three_pt_field_goals_made']),
-			'three_pointers_attempted': int(request.form['last_game_three_pt_field_goals_attempted']),
-			'free_throws_made': int(request.form['last_game_free_throws_made']),
-			'free_throws_attempted': int(request.form['last_game_free_throws_attempted']),
-			'field_goal_percentage': float(request.form['last_game_field_goal_pct']),
-			'three_point_field_goal_percentage': float(request.form['last_game_three_pt_field_goal_pct']),
-			'free_throw_percentage': request.form['last_game_free_throw_pct'],
+			'date': player_last_game['GAME_DATE'],
+			'result': player_last_game['WL'],
+			'matchup': player_last_game['MATCHUP'],
+			'minutes': player_last_game['MIN'],
+			'field_goal_percentage': player_last_game['FG_PCT'],
+			'field_goals_made': player_last_game['FGM'],
+			'field_goals_attempted': player_last_game['FGA'],
+			'three_point_field_goal_percentage': player_last_game['FG3_PCT'],
+			'three_pointers_made': player_last_game['FG3M'],
+			'three_pointers_attempted': player_last_game['FG3A'],
+			'free_throw_percentage': player_last_game['FT_PCT'],
+			'free_throws_made': player_last_game['FTM'],
+			'free_throws_attempted': player_last_game['FTA'],
+			'points': player_last_game['PTS'],
+			'rebounds': player_last_game['REB'],
+			'offensive_rebounds': player_last_game['OREB'],
+			'defensive_rebounds': player_last_game['DREB'],
+			'assists': player_last_game['AST'],
+			'steals': player_last_game['STL'],
+			'blocks': player_last_game['BLK'],
+			'turnovers': player_last_game['TOV'],
+			'plus_minus': player_last_game['PLUS_MINUS'],
+			'fouls': player_last_game['PF']
 		}
 
 		profile = PlayerProfile(**player_profile)
@@ -254,7 +263,7 @@ def add_player(id):
 		db.session.add(last_game_stats)
 		db.session.commit()
 
-		return redirect(url_for('home'))
+		return jsonify({'message': 'player created successfully!'})
 
 
 @app.route('/players/<id>/removed', methods=['POST', 'GET'])
@@ -266,8 +275,7 @@ def remove_player(id):
 	db.session.delete(last_game_stats)
 	db.session.delete(player)
 	db.session.commit()
-
-	return redirect(url_for('home'))
+	return jsonify({'message': 'player deleted successfully!'})
 
 
 if __name__ == '__main__':

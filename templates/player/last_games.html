@@ -17,7 +17,50 @@
 
 
     {% block body %}
-        <div class="" style="height: 41em;margin-left:  17.6%; margin-top: 3.5px; background-color: #f9f8f8;">
+<div class="" style="height: 41em;margin-left:  17.6%; margin-top: 3.5px; background-color: #f9f8f8;">
 
+            <div class="container profile-content">
+                <div class="row">
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Matchup</small>
+                        <p class="player-attribute">{{last_game['MATCHUP'][3:]}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Minutes</small>
+                        <p class="player-attribute">{{last_game['MIN']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Points</small>
+                        <p class="player-attribute">{{last_game['PTS']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Rebounds</small>
+                        <p class="player-attribute">{{last_game['REB']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Assists</small>
+                        <p class="player-attribute">{{last_game['AST']}}</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Steals</small>
+                        <p class="player-attribute">{{last_game['STL']}}</p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Blocks</small>
+                        <p class="player-attribute">{{last_game['BLK']}} </p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Turnovers</small>
+                        <p class="player-attribute">{{last_game['TOV']}} </p>
+                    </div>
+                    <div class="col-md-2 player-profile-attributes">
+                        <small style="float: right;">Result</small>
+                        <p class="player-attribute">{{last_game['WL']}} </p>
+                    </div>
+                </div>
+            </div>
         </div>
     {% endblock %}
