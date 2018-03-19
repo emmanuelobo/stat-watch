@@ -271,8 +271,8 @@ def remove_player(id):
 	player = PlayerProfile.query.filter_by(pid=id).first()
 	stats = player.stats
 	last_game_stats = player.last_game_stats
-	db.session.delete(stats)
 	db.session.delete(last_game_stats)
+	db.session.delete(stats)
 	db.session.delete(player)
 	db.session.commit()
 	return jsonify({'message': 'player deleted successfully!'})

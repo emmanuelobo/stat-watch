@@ -35,12 +35,28 @@
               <td>{{player.last_game_stats.date.strftime('%m-%d-%Y')}}</td>
 
                 <td>
-                    <a class="remove-player-btn" href="{{url_for('remove_player', id=player.pid)}}">&times;</a>
+                    <a class="remove-player-btn" id="{{player.pid}}">&times;</a>
                 </td>
             </tr>
           {% endfor %}
           </tbody>
         </table>
-
+    {% else %}
+        <h2>You currently don't have any players =[</h2>
     {% endif %}
 </div>
+
+<script>
+  $('.remove-player-btn').on('click', function(e){
+    e.preventDefault()
+    var pid = $(this).attr('id')
+    $.ajax({
+      method: 'POST',
+      url: "players/" + pid + "/removed",
+      success: function(data){
+        console.log(data['message'])
+        window.location.reload()
+      }
+    })
+  })
+</script>

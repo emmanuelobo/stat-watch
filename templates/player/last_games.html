@@ -58,7 +58,11 @@
                     </div>
                     <div class="col-md-2 player-profile-attributes">
                         <small style="float: right;">Result</small>
-                        <p class="player-attribute">{{last_game['WL']}} </p>
+                        {% if last_game['WL'] == None %}
+                            <p class="player-attribute">In Progress</p>
+                        {% else %}
+                            <p class="player-attribute">{{last_game['WL']}} </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

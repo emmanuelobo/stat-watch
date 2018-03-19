@@ -22,6 +22,7 @@
 .remove-player-btn{
     color: red;
     font-size: 25px;
+    cursor: pointer;
 }
 
 .remove-player-btn:hover{
