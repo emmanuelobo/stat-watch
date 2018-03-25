@@ -13,10 +13,8 @@ def generate_app():
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config('SQLALCHEMY_TRACK_MODIFICATIONS', True)
 	app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 	app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
-	celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-	celery.conf.update(app.config)
 	db.init_app(app)
 	return app
 
-
 app = generate_app()
+

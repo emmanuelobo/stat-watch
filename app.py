@@ -1,9 +1,10 @@
 import datetime
 import json
 
+import celery
+from celery import Celery
 from flask import render_template, request, url_for, redirect, flash, jsonify
 from flask_login import LoginManager, current_user, login_user, logout_user
-
 from nba_py.player import get_player
 from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
@@ -12,6 +13,17 @@ from scripts.player import get_profile_pic, get_per
 from app import app, db
 
 login_manager = LoginManager(app)
+
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
+
+# my_app = Celery()
+# my_app.config_from_object(celery_config)
+
+@celery.task
+def count_by_two():
+	twos = 2
+	return twos
 
 
 def has_player(id):
@@ -27,6 +39,7 @@ def load_user(id):
 
 @app.route('/')
 def home():
+	print(count_by_two.delay())
 	return render_template('homepage.html')
 
 
@@ -138,7 +151,7 @@ def search():
 			data['player_per'] = get_per(player_info)
 
 		check_player = PlayerProfile.query.filter_by(pid=pid).first()
-		# has_player = True if check_player is not None else False
+	# has_player = True if check_player is not None else False
 
 	# return render_template('searched_player.html', **data, has_player=has_player)
 	return redirect(url_for('player_page', id=data['player_id']))
@@ -150,7 +163,8 @@ def player_page(id):
 	stats = current_player.headline_stats()[0]
 	info = current_player.info()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic, has_player=has_player(id), per=get_per(info))
+	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic,
+						   has_player=has_player(id), per=get_per(info))
 
 
 @app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
@@ -167,7 +181,8 @@ def last_games(id):
 	last_game = player.PlayerGameLogs(id).info()[0]
 	stats = current_player.headline_stats()[0]
 	profile_pic = get_profile_pic(current_player.info()[0])
-	return render_template('/player/last_games.html', last_game=last_game, stats=stats, profile_pic=profile_pic, has_player=has_player(id))
+	return render_template('/player/last_games.html', last_game=last_game, stats=stats, profile_pic=profile_pic,
+						   has_player=has_player(id))
 
 
 @app.route('/players/<id>/analytics', methods=['POST', 'GET'])
@@ -215,7 +230,7 @@ def add_player(id):
 			'pid': id,
 			'picture': get_profile_pic(player_info),
 			'dob': dob,
-			}
+		}
 
 		player_stats = {
 			'ppg': player_stats['PTS'],
