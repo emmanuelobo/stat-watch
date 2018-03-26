@@ -1,0 +1,17 @@
+select pid, full_name from playerprofile group by pid;
+
+select playerprofile.full_name, playerprofile.position, playerstats.ppg, playerstats.rpg, playerstats.apg
+from playerprofile
+inner join playerstats on playerprofile.id=playerstats.player_id;
+
+select playerprofile.full_name, playerprofile.position, playerstats.ppg, playerstats.rpg, playerstats.apg
+from playerprofile
+inner join playerstats on playerprofile.id=playerstats.player_id
+order by playerstats.ppg DESC;
+
+select playerprofile.full_name, playerprofile.position, 
+playerstats.ppg, playerstats.rpg, playerstats.apg, 
+lastgamestats.date as last_game_date, lastgamestats.matchup as last_game_matchup, lastgamestats.points as last_game_points, lastgamestats.rebounds as last_game_rebounds, lastgamestats.assists as last_game_assists
+from playerprofile
+inner join playerstats on playerprofile.id=playerstats.player_id
+inner join lastgamestats on playerprofile.id = lastgamestats.player_id;

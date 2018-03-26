@@ -3,6 +3,8 @@ import json
 
 import celery
 from celery import Celery
+from celery.schedules import crontab
+from celery.task import periodic_task
 from flask import render_template, request, url_for, redirect, flash, jsonify
 from flask_login import LoginManager, current_user, login_user, logout_user
 from nba_py.player import get_player
@@ -10,20 +12,11 @@ from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.player import get_profile_pic, get_per
-from app import app, db
+from application import app, db
+import tasks
+
 
 login_manager = LoginManager(app)
-
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
-
-# my_app = Celery()
-# my_app.config_from_object(celery_config)
-
-@celery.task
-def count_by_two():
-	twos = 2
-	return twos
 
 
 def has_player(id):
@@ -39,7 +32,6 @@ def load_user(id):
 
 @app.route('/')
 def home():
-	print(count_by_two.delay())
 	return render_template('homepage.html')
 
 
@@ -154,6 +146,7 @@ def search():
 	# has_player = True if check_player is not None else False
 
 	# return render_template('searched_player.html', **data, has_player=has_player)
+	get_player_name.delay(data['player_name'])
 	return redirect(url_for('player_page', id=data['player_id']))
 
 

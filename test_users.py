@@ -3,7 +3,7 @@ import unittest
 from decouple import config
 from flask import url_for
 
-from app import app, db
+from application import app, db
 TEST_DB = 'test.db'
 
 

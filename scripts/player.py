@@ -56,3 +56,10 @@ def get_per(player):
 		soup = BeautifulSoup(source.content, 'html.parser')
 
 	return list(soup.find_all(class_='p3')[0].descendants)[5].string
+
+
+class StatsAnalysis():
+	'''
+	Analysis on player stats
+	'''
+	#	pass
