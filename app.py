@@ -11,7 +11,7 @@ from nba_py.player import get_player
 from nba_py import player
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
-from scripts.player import get_profile_pic, get_per
+from scripts.playerutil import get_profile_pic, get_per
 from application import app, db
 import tasks
 

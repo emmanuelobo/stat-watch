@@ -2,3 +2,9 @@
 .idea
 .env
 *.pyc
+start
+*.sqlite
+.vscode
+*.bak
+*.dat
+*.dir

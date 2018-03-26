@@ -18,17 +18,13 @@ def generate_app():
 	app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 	app.config['CELERY_TIMEZONE'] = 'US/Eastern'
 	app.config['CELERYBEAT_SCHEDULE'] = {
-		"runs-every-600-seconds": {
-			"task": "app.booya",
-			"schedule": timedelta(seconds=600)
-		},
 		"query-player-names": {
-			"task": "task.query_player_names",
-			"schedule": crontab(hour=20, minute=12)
+			"task": "task.update_player",
+			"schedule": crontab(hour=23, minute=23)
 		}
 	}
 	db.init_app(app)
 	return app
 
-app = generate_app()
 
+app = generate_app()
