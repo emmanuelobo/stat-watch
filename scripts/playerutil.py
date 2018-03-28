@@ -96,7 +96,7 @@ def update_player_stats(player, player_stats, player_info):
 
 class Notifier:
 	"""
-	Analysis on player stats
+	Send user player notifications
 	"""
 
 	def double_double_notification(self):
