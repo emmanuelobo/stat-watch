@@ -8,3 +8,4 @@ start
 *.bak
 *.dat
 *.dir
+*.pid

@@ -1,6 +1,3 @@
-from datetime import timedelta
-
-from celery import Celery
 from celery.schedules import crontab
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -20,7 +17,7 @@ def generate_app():
 	app.config['CELERYBEAT_SCHEDULE'] = {
 		"query-player-names": {
 			"task": "task.update_player",
-			"schedule": crontab(hour=23, minute=23)
+			"schedule": crontab(hour=22, minute=00)
 		}
 	}
 	db.init_app(app)
