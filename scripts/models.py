@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from application import db
@@ -34,7 +34,7 @@ class PlayerProfile(db.Model):
 	pid = Column(Integer)
 	full_name = Column(String(30), nullable=False)
 	height = Column(String(10), nullable=False)
-	weight = Column(String(10), nullable=False)
+	weight = Column(String(10), nullable=True)
 	prior = Column(String(30), nullable=False)
 	team = Column(String(15), nullable=False)
 	position = Column(String(15), nullable=False)

@@ -9,3 +9,4 @@ start
 *.dat
 *.dir
 *.pid
+*.rdb

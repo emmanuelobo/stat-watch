@@ -1,8 +1,9 @@
 import datetime
 from flask import render_template, request, url_for, redirect, flash, jsonify
 from flask_login import LoginManager, current_user, login_user, logout_user
-from nba_py.player import get_player
 from nba_py import player
+from nba_py.player import get_player
+
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.playerutil import get_profile_pic, get_per
@@ -68,6 +69,21 @@ def register():
 	return render_template('signup.html', form=form)
 
 
+@app.route('/search', methods=['POST', 'GET'])
+def search():
+	if request.method == 'POST':
+		first_name, last_name = request.form['full name'].lstrip().rstrip().split()
+		try:
+			pid = get_player(first_name, last_name)
+		except StopIteration:
+			try:
+				pid = get_player(last_name, first_name)
+			except StopIteration:
+				return 'Oops it appears that player doesn\'t exist. Please try again.'
+
+	return redirect(url_for('player_page', id=pid))
+
+
 @app.route('/players/<id>', methods=['POST', 'GET'])
 def player_page(id):
 	current_player = player.PlayerSummary(id)
@@ -130,6 +146,16 @@ def add_player(id):
 		date = datetime.datetime.strptime(player_info['BIRTHDATE'], '%Y-%m-%dT00:00:00')
 		dob = f'{date.month}/{date.day}/{date.year}'
 
+		if player_info['SCHOOL'] is None:
+			prior = player_info['COUNTRY']
+		else:
+			prior = player_info['SCHOOL']
+
+		if get_per(player_info) is None:
+			player_per = 0
+		else:
+			player_per = get_per(player_info)
+
 		player_profile = {
 			'full_name': player_stats['PLAYER_NAME'],
 			'height': player_info['HEIGHT'],
@@ -141,6 +167,7 @@ def add_player(id):
 			'pid': id,
 			'picture': get_profile_pic(player_info),
 			'dob': dob,
+			'prior': prior,
 		}
 
 		player_stats = {
@@ -148,7 +175,7 @@ def add_player(id):
 			'rpg': player_stats['REB'],
 			'apg': player_stats['AST'],
 			'pie': player_stats['PIE'],
-			'per': get_per(player_info),
+			'per': player_per,
 		}
 
 		last_game = {

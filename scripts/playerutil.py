@@ -94,6 +94,12 @@ def update_player_stats(player, player_stats, player_info):
 	return player
 
 
+class PlayerUtil:
+	"""
+	Player Utility
+	"""
+
+
 class Notifier:
 	"""
 	Send user player notifications
