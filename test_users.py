@@ -21,12 +21,12 @@ class UserTests(unittest.TestCase):
 		app.config['TESTING'] = True
 		app.config['DEBUG'] = True
 		app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(config('BASE_DIR'), TEST_DB)
-		# app.config['DATABASE'] = tempfile.mkstemp()
 		self.app = app
-		self.app_context = self.app.app_context()
+		self.app_context = self.app.test_request_context()
 		self.app_context.push()
 		self.client = self.app.test_client()
-		db.create_all()
+
+	# db.create_all()
 
 	def tearDown(self):
 		# db.session.remove()
@@ -39,11 +39,6 @@ class UserTests(unittest.TestCase):
 		print('Test running...')
 		self.assertEqual(response.status_code, 200)
 
-	# def test_players(self):
-	# 	players = PlayerProfile.query.all()
-	# 	for player in players:
-	# 		print(player.full_name)
-	# 	self.assertTrue(len(players) > 0)
 
 if __name__ == '__main__':
 	unittest.main()

@@ -22,7 +22,8 @@ class PlayerUtility:
 			'current_year', year)
 		return profile_pic
 
-	def get_team_colors(self, team):
+	@staticmethod
+	def get_team_colors(team):
 		"""
 		Returns the primary and secondary colors of the player's team
 		:param team:
@@ -31,7 +32,7 @@ class PlayerUtility:
 		pass
 
 	@staticmethod
-	def get_per(self, player):
+	def get_per(player):
 		"""
 		Retrieve the player's PER
 		:param player:
