@@ -12,3 +12,8 @@ start
 *.rdb
 /stat-watch/Lib
 /stat-watch/tcl
+*.lock
+Pipfile.lock
+*.log
+_trial_temp/test.log
+_trial_temp/_trial_marker
