@@ -19,13 +19,13 @@ class UserTests(unittest.TestCase):
 	def setUp(self):
 		app.config['TESTING'] = True
 		app.config['DEBUG'] = True
-		# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(config('BASE_DIR'), TEST_DB)
-		app.config['DATABASE'] = tempfile.mkstemp()
+		app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(config('BASE_DIR'), TEST_DB)
 		self.app = app
-		self.app_context = self.app.app_context()
+		self.app_context = self.app.test_request_context()
 		self.app_context.push()
 		self.client = self.app.test_client()
-		db.create_all()
+
+	# db.create_all()
 
 	def tearDown(self):
 		db.session.remove()
