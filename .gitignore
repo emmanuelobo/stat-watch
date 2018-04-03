@@ -9,3 +9,6 @@ start
 *.dat
 *.dir
 *.pid
+*.rdb
+/stat-watch/Lib
+/stat-watch/tcl

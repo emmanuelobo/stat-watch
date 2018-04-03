@@ -94,8 +94,39 @@ def update_player_stats(player, player_stats, player_info):
 	return player
 
 
+class PlayerUtil:
+	"""
+	Player Utility
+	"""
+
+
 class Notifier:
-	'''
-	Analysis on player stats
-	'''
-#	pass
+	"""
+	Send user player notifications
+	"""
+
+	def double_double_notification(self):
+		"""
+		Notify user when a player records a double double
+		:return:
+		"""
+		pass
+
+	def triple_double_notification(self):
+		"""
+		Notify user when a player records a triple double
+		:return:
+		"""
+		pass
+
+	def career_high_notification(self):
+		"""
+		Notify user when a player has a career high game
+		:return:
+		"""
+
+
+class StatAnalyzer:
+	"""
+	Deep analysis of players' stats
+	"""

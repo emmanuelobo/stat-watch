@@ -1,8 +1,6 @@
 from celery import Celery
-from celery.schedules import crontab
-from celery.task import periodic_task
-from nba_py.player import get_player
 from nba_py import player as nba_player
+from nba_py.player import get_player
 
 from application import app, db
 from scripts.models import PlayerProfile as profile
