@@ -6,7 +6,7 @@ from nba_py.player import get_player
 
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
-from scripts.playerutil import get_profile_pic, get_per
+from scripts.playerutil import PlayerUtility
 from application import app, db
 
 login_manager = LoginManager(app)
@@ -89,16 +89,16 @@ def player_page(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
 	info = current_player.info()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic,
-						   has_player=has_player(id), per=get_per(info))
+						   has_player=has_player(id), per=PlayerUtility.get_per(info))
 
 
 @app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
 def career_stats(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/career_stats.html', stats=stats, profile_pic=profile_pic, has_player=has_player(id))
 
 
@@ -107,7 +107,7 @@ def last_games(id):
 	current_player = player.PlayerSummary(id)
 	last_game = player.PlayerGameLogs(id).info()[0]
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/last_games.html', last_game=last_game, stats=stats, profile_pic=profile_pic,
 						   has_player=has_player(id))
 
@@ -116,7 +116,7 @@ def last_games(id):
 def analytics(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/analytics.html', stats=stats, profile_pic=profile_pic, has_player=has_player(id))
 
 
@@ -124,7 +124,7 @@ def analytics(id):
 def news(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/news.html', stats=stats, profile_pic=profile_pic, has_player=has_player(id))
 
 
@@ -132,7 +132,7 @@ def news(id):
 def compare(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
-	profile_pic = get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
 	return render_template('/player/compare.html', stats=stats, profile_pic=profile_pic, has_player=has_player(id))
 
 
@@ -151,10 +151,10 @@ def add_player(id):
 		else:
 			prior = player_info['SCHOOL']
 
-		if get_per(player_info) is None:
+		if PlayerUtility.get_per(player_info) is None:
 			player_per = 0
 		else:
-			player_per = get_per(player_info)
+			player_per = PlayerUtility.get_per(player_info)
 
 		player_profile = {
 			'full_name': player_stats['PLAYER_NAME'],
@@ -165,7 +165,7 @@ def add_player(id):
 			'team': player_info['TEAM_NAME'],
 			'user_id': current_user.id,
 			'pid': id,
-			'picture': get_profile_pic(player_info),
+			'picture': PlayerUtility.get_profile_pic(player_info),
 			'dob': dob,
 			'prior': prior,
 		}
