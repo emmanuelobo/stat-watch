@@ -6,7 +6,8 @@ from decouple import config
 from flask import url_for
 import tempfile
 
-from application import app, db
+import app
+import db
 from scripts.models import PlayerProfile
 
 TEST_DB = 'test.db'

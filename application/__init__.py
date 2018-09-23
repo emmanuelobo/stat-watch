@@ -12,12 +12,12 @@ def generate_app():
 	app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
 	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config('SQLALCHEMY_TRACK_MODIFICATIONS', True)
 	app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
-	app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
-	app.config['CELERY_TIMEZONE'] = 'US/Eastern'
-	app.config['CELERYBEAT_SCHEDULE'] = {
+	app.config['result_backend'] = 'redis://localhost:6379/0'
+	app.config['timezone'] = 'US/Eastern'
+	app.config['celerybeat_schedule'] = {
 		"query-player-names": {
 			"task": "task.update_player",
-			"schedule": crontab(hour=22, minute=00)
+			"schedule": crontab(hour=00, minute=30)
 		}
 	}
 	db.init_app(app)
