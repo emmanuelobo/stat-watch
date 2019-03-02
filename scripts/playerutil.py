@@ -4,18 +4,6 @@ from bs4 import BeautifulSoup
 
 
 class PlayerUtility:
-	"""
-	Retrieve the player's profile picture
-	:param player:
-	:return:
-	"""
-	pid = str(player['PERSON_ID'])
-	year = str(player['TO_YEAR'])
-	tid = str(player['TEAM_ID'])
-	profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid).replace(
-		'current_year', year)
-	return profile_pic
-
 	@staticmethod
 	def get_profile_pic(player):
 		"""
