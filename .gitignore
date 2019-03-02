@@ -17,3 +17,4 @@ Pipfile.lock
 *.log
 _trial_temp/test.log
 _trial_temp/_trial_marker
+Pipfile.lock
