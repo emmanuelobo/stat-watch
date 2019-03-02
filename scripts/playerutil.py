@@ -38,17 +38,6 @@ class PlayerUtility:
 		first_name = player['FIRST_NAME']
 		initial = last_name[:1].lower()
 
-	@staticmethod
-	def get_per(self, player):
-		"""
-		Retrieve the player's PER
-		:param player:
-		:return:
-		"""
-		last_name = player['LAST_NAME']
-		first_name = player['FIRST_NAME']
-		initial = last_name[:1].lower()
-
 		last_name = last_name.lower() if len(last_name) <= 5 else last_name[:5].lower()
 		first_name = first_name.lower() if len(first_name) <= 2 else first_name[:2].lower()
 

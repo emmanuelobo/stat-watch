@@ -89,9 +89,9 @@ def player_page(id):
 	current_player = player.PlayerSummary(id)
 	stats = current_player.headline_stats()[0]
 	info = current_player.info()[0]
-	profile_pic = PlayerUtility.get_profile_pic(current_player.info()[0])
+	profile_pic = PlayerUtility.get_profile_pic(info)
 	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic,
-						   has_player=has_player(id), per=PlayerUtility.get_per(current_player, info))
+						   has_player=has_player(id), per=PlayerUtility.get_per(info))
 
 
 @app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
