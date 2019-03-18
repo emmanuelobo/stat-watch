@@ -72,6 +72,8 @@ def register():
 @app.route('/search', methods=['POST', 'GET'])
 def search():
 	if request.method == 'POST':
+		if len(request.form['full name'].split()) != 2:
+			return 'Please enter the player\'s FIRST and LAST name.'
 		first_name, last_name = request.form['full name'].lstrip().rstrip().split()
 		try:
 			pid = get_player(first_name, last_name)
