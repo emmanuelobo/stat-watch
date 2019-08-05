@@ -6,7 +6,7 @@ from application import app, db
 from scripts.models import PlayerProfile as profile
 from scripts.playerutil import PlayerUtility
 
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery = Celery(app.name, broker=app.config['broker_url'])
 celery.conf.update(app.config)
 
 
