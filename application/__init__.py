@@ -14,10 +14,10 @@ def generate_app():
 	app.config['broker_url'] = 'redis://localhost:6379/0'
 	app.config['result_backend'] = 'redis://localhost:6379/0'
 	app.config['timezone'] = 'US/Eastern'
-	app.config['beat_scheduler'] = {
-		"query-player-names": {
-			"task": "task.update_player",
-			"schedule": crontab(hour=22, minute=00)
+	app.config['beat_schedule'] = {
+		'query-player-names': {
+			'task': 'task.update_player',
+			'schedule': crontab()
 		}
 	}
 	db.init_app(app)

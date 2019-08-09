@@ -4,12 +4,15 @@ from flask_login import LoginManager, current_user, login_user, logout_user
 from nba_py import player
 from nba_py.player import get_player
 
+from api.playerprofiles import Hola
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.playerutil import PlayerUtility
 from application import app, db
+from flask_restful import Api
 
 login_manager = LoginManager(app)
+api = Api(app)
 
 
 def has_player(id):
@@ -91,7 +94,7 @@ def player_page(id):
 	info = current_player.info()[0]
 	profile_pic = PlayerUtility.get_profile_pic(info)
 	return render_template('/player/profile.html', stats=stats, info=info, profile_pic=profile_pic,
-						   has_player=has_player(id), per=PlayerUtility.get_per(info))
+						   has_player=has_player(id), per=0) #PlayerUtility.get_per(info))
 
 
 @app.route('/players/<id>/careerstats', methods=['POST', 'GET'])
@@ -232,5 +235,6 @@ def remove_player(id):
 
 
 if __name__ == '__main__':
+	api.add_resource(Hola, '/hola')
 	login_manager.init_app(app)
-	app.run(debug=True)
+	app.run(host='localhost', port=8080, debug=True)

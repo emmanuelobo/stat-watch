@@ -15,7 +15,7 @@ class PlayerUtility:
 		year = str(player['TO_YEAR'])
 		tid = str(player['TEAM_ID'])
 		profile_pic = decouple.config('PLAYER_PROFILE_IMG').replace('team_id', tid).replace('player_id', pid).replace(
-			'current_year', year)
+			'current_year', '2018')
 		return profile_pic
 
 	@staticmethod
@@ -46,6 +46,7 @@ class PlayerUtility:
 
 		url = decouple.config('PLAYER_PER').replace('last_name_initial', initial) + last_name + first_name
 		source = requests.get(url + one)
+
 
 		if source.status_code == 404:
 			source = requests.get(url + two)

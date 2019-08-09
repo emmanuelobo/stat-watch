@@ -12,6 +12,7 @@ celery.conf.update(app.config)
 
 @celery.task(name="task.update_player")
 def update_player():
+	print('UPDATING PLAYER DATA!')
 	app.app_context().push()
 	results = profile.query.all()
 	for player in results:
@@ -21,7 +22,7 @@ def update_player():
 		player_stats = nba_player.PlayerSummary(pid).headline_stats()[0]
 		player_info = nba_player.PlayerSummary(pid).info()[0]
 		player = PlayerUtility.update_player_last_game(player, player_last_game)
-		player = PlayerUtility.update_player_stats(player, player_stats, player_info)
+		# player = PlayerUtility.update_player_stats(player, player_stats, player_info)
 
 	db.session.commit()
 
