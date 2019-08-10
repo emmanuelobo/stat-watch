@@ -1,8 +1,8 @@
 from flask_restful import Resource
 
 
-class Hola(Resource):
+class PlayerProfileResource(Resource):
 	def get(self):
-		return {'hola': 'amigos'}
-
+		self.name = 'Lebron James'
+		return {'name': self.name}
 

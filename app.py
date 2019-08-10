@@ -4,7 +4,7 @@ from flask_login import LoginManager, current_user, login_user, logout_user
 from nba_py import player
 from nba_py.player import get_player
 
-from api.playerprofiles import Hola
+from api.playerprofiles import PlayerProfileResource
 from scripts.forms import LoginForm, RegistrationForm
 from scripts.models import User, PlayerStats, PlayerProfile, LastGameStats
 from scripts.playerutil import PlayerUtility
@@ -231,10 +231,10 @@ def remove_player(id):
 	db.session.delete(stats)
 	db.session.delete(player)
 	db.session.commit()
-	return jsonify({'message': 'player deleted successfully!'})
+	return jsonify({'message': 'Player deleted successfully!'})
 
 
 if __name__ == '__main__':
-	api.add_resource(Hola, '/hola')
+	api.add_resource(PlayerProfileResource, '/hola')
 	login_manager.init_app(app)
 	app.run(host='localhost', port=8080, debug=True)
