@@ -18,3 +18,7 @@ Pipfile.lock
 _trial_temp/test.log
 _trial_temp/_trial_marker
 Pipfile.lock
+client/.editorconfig
+client/package-lock.json
+client/package.json
+migrations/versions/9fa8cd4f7aaa_.py

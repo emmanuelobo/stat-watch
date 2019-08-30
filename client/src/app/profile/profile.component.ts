@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.dataService.getPlayerProfile().subscribe(data => {
       this.player = new PlayerProfile(data);
+      console.log(data);
     });
   }
 

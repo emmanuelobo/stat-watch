@@ -8,7 +8,7 @@ export class PlayerProfile {
     school: string;
     height: string;
     weight: string;
-    country: string;
+    nationality: string;
     experience: number;
     jersey: number;
     profilepicture: string;
@@ -23,5 +23,10 @@ export class PlayerProfile {
         this.weight = data['player']['WEIGHT'];
         this.height = data['player']['HEIGHT'];
         this.school = data['player']['SCHOOL'];
+        this.nationality = data['player']['COUNTRY'];
+        this.experience = data['player']['SEASON_EXP'];
+        this.jersey = data['player']['JERSEY'];
+        this.team = data['player']['TEAM_NAME'];
+        this.profilepicture = data['profile_pic'];
     }
 }
